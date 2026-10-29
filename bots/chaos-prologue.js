@@ -10,34 +10,8 @@ var CHAIN = 20;
 var UNLOCK = 43;
 var CRYPT = 42;
 
-function farm(quest, item, need, map, cell, pad, monster) {
-    if (!bot.travel(map)) return false;
-    if (!bot.quest.active(quest)) {
-        bot.quest.accept(quest);
-        return false;
-    }
-    var have = bot.item(item);
-    if (have == null) return false;
-    if (have >= need) {
-        bot.quest.turnIn(quest);
-        return false;
-    }
-    if (!bot.moveToCell(cell, pad)) return false;
-    bot.kill(monster, need - have);
-    return false;
-}
-
-function mapQuest(quest, item, need, mapItem, map) {
-    if (!bot.travel(map)) return false;
-    if (!bot.quest.active(quest)) {
-        bot.quest.accept(quest);
-        return false;
-    }
-    if (!bot.mapItem(mapItem, need, item)) return false;
-    bot.quest.turnIn(quest);
-    return false;
-}
-
+// Unlife Insurance wants a map item and then a shop purchase, so it is not a
+// gather. The engine still paces the map item and the buy.
 function insurance() {
     if (!bot.travel("prison")) return false;
     if (!bot.quest.active(6216)) {
@@ -50,6 +24,8 @@ function insurance() {
     return false;
 }
 
+// The forest asks two monsters for different items, which is one monster more
+// than farm takes.
 function forest() {
     if (!bot.travel("forestchaos")) return false;
     if (!bot.quest.active(6219)) {
@@ -85,12 +61,12 @@ var unlock = bot.quest.value(UNLOCK);
 var crypt = bot.quest.value(CRYPT);
 if (chain == null || unlock == null || crypt == null) return;
 
-if (chain < 1) return farm(183, 869, 4, "battleundera", "r2", "Right", "Skeletal Fire Mage");
-if (chain < 2) return farm(176, 828, 5, "swordhavenundead", "Enter", "Spawn", "Skeletal Soldier");
-if (chain < 3) return farm(177, 829, 4, "swordhavenundead", "Extra1", "Center", "Skeletal Ice Mage");
-if (chain < 4) return farm(178, 830, 1, "swordhavenundead", "Gates", "Center", "Undead Giant");
-if (chain < 5) return mapQuest(179, 831, 5, 38, "castleundead");
-if (chain < 6) return farm(180, 832, 6, "castleundead", "Enter", "Spawn", "Skeletal Viking");
+if (chain < 1) return bot.quest.farm(183, "Skeletal Fire Mage", "battleundera", "r2", "Right");
+if (chain < 2) return bot.quest.farm(176, "Skeletal Soldier", "swordhavenundead", "Enter", "Spawn");
+if (chain < 3) return bot.quest.farm(177, "Skeletal Ice Mage", "swordhavenundead", "Extra1", "Center");
+if (chain < 4) return bot.quest.farm(178, "Undead Giant", "swordhavenundead", "Gates", "Center");
+if (chain < 5) return bot.quest.gather(179, 38, "castleundead");
+if (chain < 6) return bot.quest.farm(180, "Skeletal Viking", "castleundead", "Enter", "Spawn");
 
 // The throne room's cutscene ends in Shadowfall, and the choice it offers is
 // two quest writes: the unlock, and the alignment. Those are the progression,
@@ -109,11 +85,11 @@ if (unlock < 1) {
     return;
 }
 
-if (unlock < 2) return farm(196, 900, 1, "chaoscrypt", "Boss2", "Right", "Chaorrupted Armor");
+if (unlock < 2) return bot.quest.farm(196, "Chaorrupted Armor", "chaoscrypt", "Boss2", "Right");
 if (unlock < 3) return insurance();
 
-if (crypt < 1) return mapQuest(6217, 42994, 1, 5662, "chaoscrypt");
-if (crypt < 2) return farm(6218, 901, 5, "chaoscrypt", "Basement", "Top", "Chaorrupted Knight");
+if (crypt < 1) return bot.quest.gather(6217, 5662, "chaoscrypt");
+if (crypt < 2) return bot.quest.farm(6218, "Chaorrupted Knight", "chaoscrypt", "Basement", "Top");
 if (crypt < 3) return forest();
 
 bot.log("chaos-prologue: done");
