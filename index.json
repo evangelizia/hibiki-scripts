@@ -16,6 +16,19 @@
       "timeout": 60
     },
     {
+      "id": "chaos-2-vath",
+      "name": "13 Lords of Chaos: Vath",
+      "desc": "The second Lord of Chaos, Dwarfhold up to Vath.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 6597,
+      "sha256": "4f6d05cfbecab2e46dccb96b154362b7ebf6f14faef0ccdffcae97ef7240f2c3",
+      "path": "bots/chaos-2-vath.js",
+      "mode": "once",
+      "timeout": 60
+    },
+    {
       "id": "chaos-prologue",
       "name": "13 Lords of Chaos: Prologue",
       "desc": "The 13 Lords of Chaos prologue, up to the Forest of Chaos.",
