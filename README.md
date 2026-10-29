@@ -84,9 +84,10 @@ regenerates it and commits the result.
 - a preset calling `bot.*`, or a bot calling `s.*`
 - a missing `/// name:`
 
-It warns, without failing, about an assignment to an undeclared name. `this.x`
-survives a pass; a bare `x = ...` is the most common way a bot dies halfway
-through. See *Scripting* in the shell's `docs/BOTS.md`.
+It warns, without failing, about an assignment to an undeclared name. State
+between ticks goes in `bot.memory`; a bare `x = ...` writes a global shared
+with every other script, which is the most common way a bot dies halfway
+through. See *State between ticks* in the shell's `docs/BOTS.md`.
 
 Syntax checking runs on the CI's JavaScript engine, which accepts a few things
 Rhino 1.7.15 does not. It catches mistakes, it does not promise a compile.

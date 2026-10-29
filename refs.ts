@@ -63,6 +63,12 @@ export interface Bot {
   travel(map: string): boolean;
 
   /**
+   * Steps to a cell and waits for the client to report it. A pad is optional;
+   * when named, the step is done only on that pad. Paced, with a 2.5 s floor.
+   */
+  moveToCell(cell: string, pad?: string): boolean;
+
+  /**
    * Fights until `count` of `target` are dead.
    *
    * - `kill("*", n)` - anything in the map
@@ -88,6 +94,13 @@ export interface Bot {
    * request: there is no flag and nothing repeats on its own. Paced.
    */
   aggroRoom(): boolean;
+
+  /**
+   * A plain object that belongs to the selected bot. The same one on every
+   * call, so it is the place for state between ticks; cleared whenever a bot
+   * is selected. Not keyed to the character.
+   */
+  readonly memory: Record<string, unknown>;
 
   readonly quest: {
     /** In progress or ready to hand in. */

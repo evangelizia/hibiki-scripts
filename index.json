@@ -3,6 +3,19 @@
   "repo": "evangelizia/hibiki-scripts",
   "bots": [
     {
+      "id": "dragonslayer",
+      "name": "Dragonslayer",
+      "desc": "Galanoth's four rank quests in the Lair, from Veteran to Marshal.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 1436,
+      "sha256": "ca202cc9793b7466fdc5e5d2c73e2afbcbe32870b6d896d6abad23f323bba8ab",
+      "path": "bots/dragonslayer.js",
+      "mode": "once",
+      "timeout": 60
+    },
+    {
       "id": "shadowbattleon-exp",
       "name": "Shadow Battleon EXP",
       "desc": "Doomed Trolls at Enter, handing in both Shadow Hunt quests.",

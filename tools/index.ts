@@ -117,8 +117,9 @@ const BANNED: Array<[RegExp, string]> = [
 ];
 
 /**
- * The documented footgun: `this.x` survives a pass, a bare `x = ...` does not
- * reliably. Flagged, not fatal - the author may know something we do not.
+ * The documented footgun: a bare `x = ...` lands on the sandbox global, which
+ * every script shares. Flagged, not fatal - the author may know something we
+ * do not.
  */
 function undeclared(source: string): string[] {
   const declared = new Set<string>();
@@ -158,7 +159,8 @@ function check(kind: Kind, id: string, source: string, headerFields: Map<string,
   }
 
   for (const name of undeclared(stripped)) {
-    warn(where, `assigns undeclared \`${name}\`; use \`this.${name}\` so it survives the pass`);
+    const holder = kind === "bots" ? "bot.memory" : "s.memory";
+    warn(where, `assigns undeclared \`${name}\`; use \`${holder}.${name}\` so it survives the pass`);
   }
 
   if (!headerFields.get("name")) fail(where, "header has no `/// name:` line");
