@@ -1,0 +1,10 @@
+{
+  "name": "hibiki-scripts",
+  "private": true,
+  "type": "module",
+  "description": "Script registry for the Hibiki shell: bots and class presets, served as plain files.",
+  "scripts": {
+    "index": "bun run tools/index.ts",
+    "check": "bun run tools/index.ts --check"
+  }
+}

@@ -1,0 +1,49 @@
+name: index
+
+# index.json is generated, never edited. A pull request proves it is current;
+# a push to main regenerates it and commits the result, if it changed.
+on:
+  push:
+    branches: [main]
+    paths-ignore:
+      - index.json
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: index-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  index:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: verify
+        if: github.event_name == 'pull_request'
+        run: bun run check
+
+      - name: regenerate
+        if: github.event_name != 'pull_request'
+        run: bun run index
+
+      - name: commit
+        if: github.event_name != 'pull_request'
+        run: |
+          if git diff --quiet -- index.json; then
+            echo "index.json is already current"
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.json
+          git commit -m 'index: regenerate'
+          git push

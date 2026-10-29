@@ -1,0 +1,49 @@
+{
+  "spec": 1,
+  "repo": "evangelizia/hibiki-scripts",
+  "bots": [
+    {
+      "id": "shadowbattleon-exp",
+      "name": "Shadow Battleon EXP",
+      "desc": "Doomed Trolls at Enter, handing in both Shadow Hunt quests.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 884,
+      "sha256": "05d2283a136ae4a409506ba5e085377eb89c62e7d783aa1e1ce0a371d8e19d60",
+      "path": "bots/shadowbattleon-exp.js",
+      "mode": "loop",
+      "timeout": 10
+    }
+  ],
+  "skills": [
+    {
+      "id": "legion-revenant",
+      "name": "Legion Revenant",
+      "desc": "Upkeep the buff, then both debuffs, then Anathema. The bar is addressed by name, so the slot order above is only a note.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 926,
+      "sha256": "792f0da57d14c73a42eb49739a8d5051aa4c5a0d24544a36564ee1a68300bcf7",
+      "path": "skills/legion-revenant.js",
+      "class": "Legion Revenant",
+      "role": "Offensive Caster",
+      "slots": "1 Atramentous Shade, 2 Wicked Purgatory, 3 Depraved Empowerment, 4 Anathema"
+    },
+    {
+      "id": "lightcaster",
+      "name": "LightCaster",
+      "desc": "Illuminate on cooldown, Burned by Light when mana allows, then Lingering Light for the In The Spotlight ramp, Light Blast to fill.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 1300,
+      "sha256": "56091745d73cafb335112c43e1e10b7a837e8b231c5f6ff262e6d6eac7c79292",
+      "path": "skills/lightcaster.js",
+      "class": "LightCaster",
+      "role": "Offensive Caster",
+      "slots": "1 Lingering Light, 2 Light Blast, 3 Illuminate, 4 Burned by Light"
+    }
+  ]
+}
