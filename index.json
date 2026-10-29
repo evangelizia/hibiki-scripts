@@ -3,6 +3,19 @@
   "repo": "evangelizia/hibiki-scripts",
   "bots": [
     {
+      "id": "chaos-1-escherion",
+      "name": "13 Lords of Chaos: Escherion",
+      "desc": "The first Lord of Chaos, Chiral Valley up to Escherion.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 3577,
+      "sha256": "13a4b1c8ef66e567ca591eef7f8bf1620e81cf0fdbe0c9501bdd4b497298e7b5",
+      "path": "bots/chaos-1-escherion.js",
+      "mode": "once",
+      "timeout": 60
+    },
+    {
       "id": "chaos-prologue",
       "name": "13 Lords of Chaos: Prologue",
       "desc": "The 13 Lords of Chaos prologue, up to the Forest of Chaos.",
