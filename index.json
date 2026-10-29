@@ -3,6 +3,19 @@
   "repo": "evangelizia/hibiki-scripts",
   "bots": [
     {
+      "id": "chaos-prologue",
+      "name": "13 Lords of Chaos: Prologue",
+      "desc": "The 13 Lords of Chaos prologue, up to the Forest of Chaos.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 4057,
+      "sha256": "9300dbf26a5d69c4a4f97d47a94f4149bac79218f67bf4b268a83fa548407e2e",
+      "path": "bots/chaos-prologue.js",
+      "mode": "once",
+      "timeout": 45
+    },
+    {
       "id": "dragonslayer",
       "name": "Dragonslayer",
       "desc": "Galanoth's four rank quests in the Lair, from Veteran to Marshal.",
