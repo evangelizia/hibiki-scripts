@@ -24,11 +24,12 @@ if (bot.memory.rank == null) bot.memory.rank = 0;
 if (done > bot.memory.rank) bot.memory.rank = done;
 if (bot.memory.rank > RANKS.length) bot.memory.rank = RANKS.length;
 
-// A quest in the tracker is the one being run, whatever the counter says:
-// its hand-in is the step that moves the counter on.
+// A quest in the tracker may be running. It can move the rank forward, never
+// back: a repeatable quest left in the tracker must not pull the run down to
+// a rank the counter already passed.
 for (var i = RANKS.length - 1; i >= 0; i--) {
     if (bot.quest.active(RANKS[i].id)) {
-        bot.memory.rank = i;
+        if (i > bot.memory.rank) bot.memory.rank = i;
         break;
     }
 }

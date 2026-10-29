@@ -9,8 +9,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 1996,
-      "sha256": "36302212d32a02506aa474e7e85f898a33bbefe90b047d3d3a071ec27f2b603b",
+      "size": 2086,
+      "sha256": "f4e65208e1b634c3a87fba7de9f4b7d2e214a608c8ebe92957ce099efb192e53",
       "path": "bots/dragonslayer.js",
       "mode": "once",
       "timeout": 60
