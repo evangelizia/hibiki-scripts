@@ -111,6 +111,12 @@ export interface Bot {
     accept(id: number): boolean;
     /** 3 s floor. */
     turnIn(id: number): boolean;
+    /**
+     * The character's value for a quest slot, the number the client uses to
+     * unlock chain steps. `null` until the movie answers; the first call asks
+     * it to watch the slot. Paced ask, then free.
+     */
+    value(slot: number): number | null;
   };
 
   /** One line to the LOG pane, level `script`. */

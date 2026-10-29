@@ -6,30 +6,43 @@
 var GALANOTH = ["Lobby", "Left"];
 
 var RANKS = [
-    { id: 165, farm: ["Enter", "Spawn"] },
-    { id: 166, farm: ["Hole", "Down"] },
-    { id: 167, farm: ["Ledge", "LeftUp"] },
-    { id: 168, farm: ["End", "Right"] }
+    { id: 165, name: "Veteran", farm: ["Enter", "Spawn"] },
+    { id: 166, name: "Sergeant", farm: ["Hole", "Down"] },
+    { id: 167, name: "Captain", farm: ["Ledge", "LeftUp"] },
+    { id: 168, name: "Marshal", farm: ["End", "Right"] }
 ];
 
 if (!bot.travel("lair")) return;
 
-// The client lists active quests, never finished ones, so the bot remembers
-// the rank it turned in. Selecting the bot again clears the memory, and the
-// active quest is the only thing that can put a fresh run back on track.
-if (bot.memory.rank == null) {
-    bot.memory.rank = 0;
-    if (bot.quest.active(168)) bot.memory.rank = 3;
-    else if (bot.quest.active(167)) bot.memory.rank = 2;
-    else if (bot.quest.active(166)) bot.memory.rank = 1;
+// Slot 18 is the chain's counter: it reads 1 after Veteran and 4 after
+// Marshal. Unlike the tracker and this script's memory it survives a reload,
+// so a run that is picked up again does not start over at Veteran.
+var done = bot.quest.value(18);
+if (done == null) return;
+
+if (bot.memory.rank == null) bot.memory.rank = 0;
+if (done > bot.memory.rank) bot.memory.rank = done;
+if (bot.memory.rank > RANKS.length) bot.memory.rank = RANKS.length;
+
+// A quest in the tracker is the one being run, whatever the counter says:
+// its hand-in is the step that moves the counter on.
+for (var i = RANKS.length - 1; i >= 0; i--) {
+    if (bot.quest.active(RANKS[i].id)) {
+        bot.memory.rank = i;
+        break;
+    }
 }
 
 if (bot.memory.rank >= RANKS.length) {
-    bot.log("Marshal done: buy the Dragonslayer class from Galanoth.");
+    bot.log("dragonslayer: Marshal done, buy the class from Galanoth");
     return true;
 }
 
 var rank = RANKS[bot.memory.rank];
+if (bot.memory.shown !== rank.id) {
+    bot.memory.shown = rank.id;
+    bot.log("dragonslayer: " + rank.name + " (" + (bot.memory.rank + 1) + " of " + RANKS.length + ")");
+}
 
 if (!bot.quest.active(rank.id)) {
     if (!bot.moveToCell(GALANOTH[0], GALANOTH[1])) return;
@@ -39,6 +52,7 @@ if (!bot.quest.active(rank.id)) {
 if (bot.quest.ready(rank.id)) {
     if (!bot.moveToCell(GALANOTH[0], GALANOTH[1])) return;
     if (!bot.quest.turnIn(rank.id)) return;
+    bot.log("dragonslayer: " + rank.name + " done");
     bot.memory.rank++;
     return;
 }
