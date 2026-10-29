@@ -70,6 +70,20 @@
   ],
   "skills": [
     {
+      "id": "dragonslayer",
+      "name": "Dragonslayer",
+      "desc": "Spend Dragonbane on Impale, then Incapacitate; Scorched Steel otherwise.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 1669,
+      "sha256": "5309f521ce9af0c381000945666c0498e71125665fc0a0312f51d30de6b88a80",
+      "path": "skills/dragonslayer.js",
+      "class": "Dragonslayer",
+      "role": "Tank Melee",
+      "slots": "1 Scorched Steel, 2 Impale, 3 Incapacitate, 4 Dragon's Bane"
+    },
+    {
       "id": "legion-revenant",
       "name": "Legion Revenant",
       "desc": "Upkeep the buff, then both debuffs, then Anathema. The bar is addressed by name, so the slot order above is only a note.",
