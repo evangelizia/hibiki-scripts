@@ -92,16 +92,12 @@ if (chain < 4) return farm(178, 830, 1, "swordhavenundead", "Gates", "Center", "
 if (chain < 5) return mapQuest(179, 831, 5, 38, "castleundead");
 if (chain < 6) return farm(180, 832, 6, "castleundead", "Enter", "Spawn", "Skeletal Viking");
 
-// Drakath's arrival at the throne opens Shadowfall. Watching it is the story
-// beat; the two writes are the progression, the way the client makes them.
+// The throne room's cutscene ends in Shadowfall, and the choice it offers is
+// two quest writes: the unlock, and the alignment. Those are the progression,
+// and Shadowfall is the only map this step walks to, so a step that is asked
+// again cannot bounce between two maps.
 if (unlock < 1) {
-    if (!bot.memory.watched) {
-        if (!bot.travel("castleundead")) return;
-        if (!bot.moveToCell("King2", "Right")) return;
-        if (!bot.travel("shadowfall")) return;
-        bot.memory.watched = true;
-        return;
-    }
+    if (!bot.travel("shadowfall")) return;
     if (bot.memory.writes == null) bot.memory.writes = 0;
     if (bot.memory.writes >= 8) {
         bot.fail("quest slot 43 did not take the unlock write");

@@ -9,8 +9,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 4057,
-      "sha256": "9300dbf26a5d69c4a4f97d47a94f4149bac79218f67bf4b268a83fa548407e2e",
+      "size": 3983,
+      "sha256": "61fcab68e32bf9dfcd05a57c5524d475b0ef8392e32cd145a48e169e5b7c4193",
       "path": "bots/chaos-prologue.js",
       "mode": "once",
       "timeout": 45
