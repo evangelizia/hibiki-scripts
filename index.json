@@ -22,8 +22,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 6597,
-      "sha256": "4f6d05cfbecab2e46dccb96b154362b7ebf6f14faef0ccdffcae97ef7240f2c3",
+      "size": 6753,
+      "sha256": "15dc111dc7b10772d5a442a0ee0ad33f749bac895c101d5deeec12c96d7eeb98",
       "path": "bots/chaos-2-vath.js",
       "mode": "once",
       "timeout": 60
