@@ -265,12 +265,12 @@
     {
       "id": "poisonforest-story",
       "name": "PoisonForest Story",
-      "desc": "The PoisonForest chain, poison creation through Xavier Lionfang.",
+      "desc": "The Manor prerequisite and the PoisonForest chain, poison creation through Xavier Lionfang.",
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 4099,
-      "sha256": "566e89782f42e2cfa84030d0c602e1da58de2da1118f013acb81179ddf307c15",
+      "size": 4994,
+      "sha256": "e758e739b629adf9a989953fd27e5f3b3a73c6bec562c788bcc541f0ede1c209",
       "path": "bots/poisonforest-story.js",
       "mode": "once",
       "timeout": 180

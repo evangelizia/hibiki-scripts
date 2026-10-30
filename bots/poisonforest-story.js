@@ -1,31 +1,42 @@
 /// name: PoisonForest Story
-/// desc: The PoisonForest chain, poison creation through Xavier Lionfang.
+/// desc: The Manor prerequisite and the PoisonForest chain, poison creation through Xavier Lionfang.
 /// once: true
 /// timeout: 180
 
-// Where every item a quest turns in comes from. `spot` is the map-item id, and
+// Where every item a quest turns in comes from. `spot` is the map-item id and
 // the key is the bag id; every pair below was read off a live packet, so 964
 // pays Nightrage Weed and 965 Cyanidic Soil rather than the other way round.
-var MAP = "poisonforest";
+//
+// The Manor chain runs first: 1948 accepts without it, but refuses the hand-in
+// until 1062 is done.
 var SOURCE = {
-    11799: { monster: "Traitor Knight", cell: "r12" },
-    11800: { monster: "Marsh Lurker", cell: "Enter" },
-    11801: { spot: 964 },
-    11802: { spot: 965 },
-    11803: { spot: 963 },
-    11804: { spot: 971 },
-    11806: { monster: "Traitor Knight", cell: "r12" },
-    11807: { monster: "Treeant", cell: "r3" },
-    11809: { spot: 966 },
-    11812: { monster: "Burning Loyalist", cell: "r10" },
-    11813: { spot: 967 },
-    11819: { monster: "Burning Loyalist", cell: "r10" },
-    11821: { monster: "Traitor Knight", cell: "r12" },
-    11826: { spot: 968 },
-    11827: { monster: "Traitor Knight", cell: "r12" },
-    11828: { spot: 970 },
-    11829: { spot: 969 },
-    11830: { monster: "Xavier Lionfang", cell: "r15" }
+    // Manor
+    7552: { monster: "Amethyst Golem", map: "manor", cell: "r2" },
+    7553: { spot: 403, map: "manor" },
+    7555: { monster: "Frigid Frogdrake", map: "manor", cell: "r2" },
+    7556: { spot: 402, map: "manor" },
+    7558: { spot: 404, map: "manor" },
+    7560: { monster: "Bird of Paradise", map: "manor", cell: "r9" },
+
+    // PoisonForest
+    11799: { monster: "Traitor Knight", map: "poisonforest", cell: "r12" },
+    11800: { monster: "Marsh Lurker", map: "poisonforest", cell: "Enter" },
+    11801: { spot: 964, map: "poisonforest" },
+    11802: { spot: 965, map: "poisonforest" },
+    11803: { spot: 963, map: "poisonforest" },
+    11804: { spot: 971, map: "poisonforest" },
+    11806: { monster: "Traitor Knight", map: "poisonforest", cell: "r12" },
+    11807: { monster: "Treeant", map: "poisonforest", cell: "r3" },
+    11809: { spot: 966, map: "poisonforest" },
+    11812: { monster: "Burning Loyalist", map: "poisonforest", cell: "r10" },
+    11813: { spot: 967, map: "poisonforest" },
+    11819: { monster: "Burning Loyalist", map: "poisonforest", cell: "r10" },
+    11821: { monster: "Traitor Knight", map: "poisonforest", cell: "r12" },
+    11826: { spot: 968, map: "poisonforest" },
+    11827: { monster: "Traitor Knight", map: "poisonforest", cell: "r12" },
+    11828: { spot: 970, map: "poisonforest" },
+    11829: { spot: 969, map: "poisonforest" },
+    11830: { monster: "Xavier Lionfang", map: "poisonforest", cell: "r15" }
 };
 
 // A quest item is temporary: it is gone after a relog, and four hand-ins are
@@ -38,8 +49,11 @@ var PRODUCE = {
     11823: 1953    // Flakes of Rust
 };
 
-// The chain in order; its slot values run 6 to 13.
-var ORDER = [1948, 1949, 1950, 1951, 1952, 1953, 1954, 1955];
+// The chain in order: the Manor prelude, then slots 6 to 13.
+var ORDER = [
+    1058, 1059, 1060, 1061, 1062,
+    1948, 1949, 1950, 1951, 1952, 1953, 1954, 1955
+];
 
 // Where that item comes from, one action per pass.
 //
@@ -57,7 +71,7 @@ function source(want) {
         bot.fail("item " + want.id + " has no source in this run");
         return;
     }
-    if (!bot.travel(MAP)) return;
+    if (!bot.travel(from.map)) return;
     if (from.spot) {
         bot.mapItem(from.spot, want.need, want.id);
         return;
