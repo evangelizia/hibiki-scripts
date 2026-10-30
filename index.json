@@ -337,16 +337,16 @@
     {
       "id": "master-ranger",
       "name": "Master Ranger",
-      "desc": "Two-target farm rotation built on the Death Mark ramp.",
+      "desc": "Two-target farm order that cycles every arrow and fills with the free one.",
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 1385,
-      "sha256": "83c450184d19c4a2bd6bdd6cd91427b0ff77e925db04b4df9a62df89f3ed418a",
+      "size": 1429,
+      "sha256": "eb2fca7dce14e2f8b8f0c659af67a56e540fcb4818eaa005be32ba8bc93cc2f2",
       "path": "skills/master-ranger.js",
       "class": "Master Ranger, Ranger",
       "role": "Dodge Melee",
-      "slots": "1 Mark for Death, 2 Explosive Bolt, 3 Vampiric Shot, 4 Scorching Arrow"
+      "slots": "1 Mark For Death, 2 Explosive Bolt, 3 Vampiric Shot, 4 Scorching Arrow"
     },
     {
       "id": "oracle",
