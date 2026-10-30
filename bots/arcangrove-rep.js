@@ -48,6 +48,17 @@ function phase(name) {
     bot.log("arcangrove: " + name);
 }
 
+// The fight belongs to the kill step, and it only ends when the next count is
+// asked for. A round that fills mid-run never asks again, so the room would
+// stay aggroed for the whole hand-in; end it here instead.
+function handIn() {
+    bot.stopCombat();
+    for (var i = 0; i < QUESTS.length; i++) {
+        if (bot.quest.ready(QUESTS[i]) && !bot.quest.turnIn(QUESTS[i])) return false;
+    }
+    return true;
+}
+
 if (!bot.checkpoint("arcangrove")) return;
 if (!bot.travel("arcangrove")) return;
 
@@ -73,9 +84,7 @@ if (!allActive) {
     }
 
     if (ready) {
-        for (var turn = 0; turn < QUESTS.length; turn++) {
-            if (bot.quest.ready(QUESTS[turn]) && !bot.quest.turnIn(QUESTS[turn])) return;
-        }
+        handIn();
         return;
     }
 
@@ -111,9 +120,7 @@ if (!spitterDone) {
 }
 
 phase("turning in");
-for (var hand = 0; hand < QUESTS.length; hand++) {
-    if (bot.quest.ready(QUESTS[hand]) && !bot.quest.turnIn(QUESTS[hand])) return;
-}
+if (!handIn()) return;
 
 bot.memory.phase = "";
 return true;

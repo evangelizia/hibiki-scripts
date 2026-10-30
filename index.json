@@ -3,14 +3,27 @@
   "repo": "evangelizia/hibiki-scripts",
   "bots": [
     {
+      "id": "arcangrove-rep-mafic",
+      "name": "Arcangrove REP (Mafic)",
+      "desc": "Mafic Dragon hearts for Arcangrove reputation.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 1980,
+      "sha256": "ce0bf9bb6a9cf6e35effac2271343b5f0d047c212910085f306baee8471cf09d",
+      "path": "bots/arcangrove-rep-mafic.js",
+      "mode": "loop",
+      "timeout": 30
+    },
+    {
       "id": "arcangrove-rep",
       "name": "Arcangrove REP",
       "desc": "Gorillaphants and Seed Spitters for Arcangrove reputation.",
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 4293,
-      "sha256": "f69158793f1bbdf622c07ae8ab07fe5420b92c133613f91856705be566efcc05",
+      "size": 4456,
+      "sha256": "adc185a39edaaca9387e29cd37ebc3dffb658db1d82807272b32819399d08be5",
       "path": "bots/arcangrove-rep.js",
       "mode": "loop",
       "timeout": 30
