@@ -146,6 +146,19 @@
       "timeout": 90
     },
     {
+      "id": "chaos-8-khasaanda",
+      "name": "13 Lords of Chaos: Khasaanda",
+      "desc": "The eighth Lord of Chaos, the Bloodtusk war to Khasaanda.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 7779,
+      "sha256": "ef5b157b8d69d9c2a388f40d456b326ee96e3be06fa4dca68cd794c5f400182f",
+      "path": "bots/chaos-8-khasaanda.js",
+      "mode": "once",
+      "timeout": 120
+    },
+    {
       "id": "chaos-prologue",
       "name": "13 Lords of Chaos: Prologue",
       "desc": "The 13 Lords of Chaos prologue, up to the Forest of Chaos.",
