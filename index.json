@@ -68,6 +68,19 @@
       "timeout": 60
     },
     {
+      "id": "chaos-10-lionfang",
+      "name": "13 Lords of Chaos: Lionfang",
+      "desc": "The tenth Lord of Chaos, from the Blackhorn crypt to the storm temple.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 9254,
+      "sha256": "ad3b87c7a0bc0b20fcd3ca423c13da6bf3ce8bbd21ac474b42e5b70897e4e278",
+      "path": "bots/chaos-10-lionfang.js",
+      "mode": "once",
+      "timeout": 120
+    },
+    {
       "id": "chaos-2-vath",
       "name": "13 Lords of Chaos: Vath",
       "desc": "The second Lord of Chaos, Dwarfhold up to Vath.",
