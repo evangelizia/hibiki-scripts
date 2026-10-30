@@ -85,15 +85,15 @@ var FIGHT = spots({
     15170: ["Chaos Lord Iadoa", "timespace", "Frame2", "Left"]
 });
 
-// The map items, as each map's own script asks for them: spot, map, and the
-// number of requests. The Span's six are handed over by the tutors rather than
-// picked off the floor, so a refused request leaves nothing to read but the
-// quest's own count. Lucretia's 1358 is the one the relay log showed paying a
-// note, so it names it and is asked for no more once it is held.
+// The map items, as each map's own script asks for them: spot, map, the
+// number of requests, and the bag id once it is proven. The Span's six are
+// handed over by the tutors rather than picked off the floor, and a session
+// standing on the entry pad took all six two seconds apart, so the bag count
+// is the whole truth about whether a request landed.
 var GROUND = {
-    2239: [[1358, "thespan", 1, 13231], [1359, "thespan", 1],
-           [1360, "thespan", 1], [1361, "thespan", 1],
-           [1362, "thespan", 1], [1363, "thespan", 1]],
+    2239: [[1358, "thespan", 1, 13231], [1359, "thespan", 1, 13232],
+           [1360, "thespan", 1, 13234], [1361, "thespan", 1, 13235],
+           [1362, "thespan", 1, 13233], [1363, "thespan", 1, 13230]],
     2241: [[1365, "timelibrary", 3]],
     2242: [[1366, "timelibrary", 2]],
     2243: [[1367, "timelibrary", 1]],
@@ -130,12 +130,12 @@ function ground(id) {
     }
     var key = "ground" + id;
     var wants = bot.quest.wants(id);
-    var have = "";
+    var counts = "";
     for (var i = 0; wants != null && i < wants.length; i++) {
-        have += wants[i].have + "/" + wants[i].need + " ";
+        counts += wants[i].have + "/" + wants[i].need + " ";
     }
-    if (bot.memory[key + "have"] != have) {
-        bot.memory[key + "have"] = have;
+    if (bot.memory[key + "have"] != counts) {
+        bot.memory[key + "have"] = counts;
         bot.memory[key] = 0;
     }
     var sweeps = (bot.memory[key] || 0) + 1;
@@ -148,9 +148,23 @@ function ground(id) {
     if (now - (bot.memory[key + "at"] || 0) < PACE) return false;
     bot.memory[key + "at"] = now;
     for (var j = 0; j < spots.length; j++) {
-        if (!bot.travel(spots[j][1])) return false;
-        if (!bot.mapItem(spots[j][0], spots[j][2], spots[j][3])) return false;
+        var spot = spots[j];
+        var bag = spot[3];
+        var have = bag != null ? bot.item(bag) : null;
+        if (have != null && have >= spot[2]) continue;
+        if (!bot.travel(spot[1])) return false;
+        // No bag id to read, so the engine's own send count has to finish it.
+        if (bag == null) return bot.mapItem(spot[0], spot[2]);
+        // The count has not caught up: one blind request is what puts the
+        // item in the client's tree, and the pass ends so it cannot spill
+        // onto the next spot before the answer arrives.
+        if (have == null) {
+            bot.mapItem(spot[0], spot[2]);
+            return false;
+        }
+        if (!bot.mapItem(spot[0], spot[2], bag)) return false;
     }
+    return true;
 }
 
 function work(id) {

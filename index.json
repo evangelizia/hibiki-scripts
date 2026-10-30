@@ -204,8 +204,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 8595,
-      "sha256": "7910413988fe6993b8194dc6a7ea1d5a3fe2a66c6821fe701b9d61e0fb5c2634",
+      "size": 8923,
+      "sha256": "95898d1eeb8a10c77544e44d2a3820d458ee6ae27b84039e7bb435d0291dd4f5",
       "path": "bots/chaos-8-khasaanda.js",
       "mode": "once",
       "timeout": 120
@@ -217,8 +217,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 9658,
-      "sha256": "c47b49890bc2f4b21550e0bd551028f019159d2e5f3dfbbf975037f46a63c829",
+      "size": 10299,
+      "sha256": "11a8e1690000e9e259436a69cd41267043f2e7cb38471ed69b45ada5714fbd3e",
       "path": "bots/chaos-9-iadoa.js",
       "mode": "once",
       "timeout": 120

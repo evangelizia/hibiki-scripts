@@ -102,12 +102,12 @@ function ground(id) {
     }
     var key = "ground" + id;
     var wants = bot.quest.wants(id);
-    var have = "";
+    var counts = "";
     for (var i = 0; wants != null && i < wants.length; i++) {
-        have += wants[i].have + "/" + wants[i].need + " ";
+        counts += wants[i].have + "/" + wants[i].need + " ";
     }
-    if (bot.memory[key + "have"] != have) {
-        bot.memory[key + "have"] = have;
+    if (bot.memory[key + "have"] != counts) {
+        bot.memory[key + "have"] = counts;
         bot.memory[key] = 0;
     }
     var sweeps = (bot.memory[key] || 0) + 1;
@@ -121,9 +121,18 @@ function ground(id) {
     bot.memory[key + "at"] = now;
     for (var j = 0; j < spots.length; j++) {
         var spot = spots[j];
+        var bag = spot[3];
+        var have = bag != null ? bot.item(bag) : null;
+        if (have != null && have >= spot[2]) continue;
         if (!bot.travel(spot[1])) return false;
-        if (!bot.mapItem(spot[0], spot[2], spot[3])) return false;
+        if (bag == null) return bot.mapItem(spot[0], spot[2]);
+        if (have == null) {
+            bot.mapItem(spot[0], spot[2]);
+            return false;
+        }
+        if (!bot.mapItem(spot[0], spot[2], bag)) return false;
     }
+    return true;
 }
 
 function work(id) {
