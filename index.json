@@ -83,6 +83,20 @@
   ],
   "skills": [
     {
+      "id": "archpaladin",
+      "name": "ArchPaladin",
+      "desc": "Support rotation built on Commandment upkeep and the seal combo.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 1350,
+      "sha256": "553afc358708a9811749420ea8603489fcb2ed982f7cf616734d909ed1f0f1b1",
+      "path": "skills/archpaladin.js",
+      "class": "ArchPaladin",
+      "role": "Full Hybrid",
+      "slots": "1 Commandment, 2 Hymn of Light, 3 Righteous Seal, 4 Sacred Magic: Eden"
+    },
+    {
       "id": "dragonslayer",
       "name": "Dragonslayer",
       "desc": "Spend Dragonbane on Impale, then Incapacitate; Scorched Steel otherwise.",
