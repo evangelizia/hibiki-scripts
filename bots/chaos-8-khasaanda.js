@@ -103,8 +103,10 @@ function ground(id) {
     var key = "ground" + id;
     var wants = bot.quest.wants(id);
     var counts = "";
+    var open = false;
     for (var i = 0; wants != null && i < wants.length; i++) {
         counts += wants[i].have + "/" + wants[i].need + " ";
+        if (wants[i].have < wants[i].need) open = true;
     }
     if (bot.memory[key + "have"] != counts) {
         bot.memory[key + "have"] = counts;
@@ -123,16 +125,30 @@ function ground(id) {
         var spot = spots[j];
         var bag = spot[3];
         var have = bag != null ? bot.item(bag) : null;
-        if (have != null && have >= spot[2]) continue;
-        if (!bot.travel(spot[1])) return false;
-        if (bag == null) return bot.mapItem(spot[0], spot[2]);
-        if (have == null) {
-            bot.mapItem(spot[0], spot[2]);
-            return false;
+        // A named bag id answers for itself, so the engine can drive it.
+        if (have != null) {
+            if (have >= spot[2]) continue;
+            if (!bot.travel(spot[1])) return false;
+            if (!bot.mapItem(spot[0], spot[2], bag)) return false;
+            continue;
         }
-        if (!bot.mapItem(spot[0], spot[2], bag)) return false;
+        // Nothing to read back, and the engine clears its count for the spot
+        // in front of it, so the requests are counted here or the loop keeps
+        // asking the first one for ever.
+        var sent = bot.memory[key + "s" + j] || 0;
+        if (sent >= spot[2]) continue;
+        if (!bot.travel(spot[1])) return false;
+        bot.memory[key + "s" + j] = sent + 1;
+        bot.mapItem(spot[0], spot[2]);
+        return false;
     }
-    return true;
+    if (!open) return true;
+    // Every request went out and the quest still wants more: one was dropped,
+    // so the round starts over.
+    for (var k = 0; k < spots.length; k++) {
+        bot.memory[key + "s" + k] = 0;
+    }
+    return false;
 }
 
 function work(id) {
