@@ -3,6 +3,19 @@
   "repo": "evangelizia/hibiki-scripts",
   "bots": [
     {
+      "id": "arcangrove-rep",
+      "name": "Arcangrove REP",
+      "desc": "Gorillaphants and Seed Spitters for Arcangrove reputation.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 1479,
+      "sha256": "ae8c61f1f6a3387d8787551422c0143196104330be8e47680796c775390c659b",
+      "path": "bots/arcangrove-rep.js",
+      "mode": "loop",
+      "timeout": 30
+    },
+    {
       "id": "chaos-1-escherion",
       "name": "13 Lords of Chaos: Escherion",
       "desc": "The first Lord of Chaos, Chiral Valley up to Escherion.",
