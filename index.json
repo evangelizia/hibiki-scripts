@@ -137,6 +137,20 @@
       "slots": "1 Scorched Steel, 2 Impale, 3 Incapacitate, 4 Dragon's Bane"
     },
     {
+      "id": "imperial-chunin",
+      "name": "Imperial Chunin",
+      "desc": "Two-target farm rotation built on short cooldowns.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 1208,
+      "sha256": "a81a45db2b55b0d43a4d67c5b5a5613f3e5b2ef197f8e3c1b6edc99a01487505",
+      "path": "skills/imperial-chunin.js",
+      "class": "Imperial Chunin, Chunin",
+      "role": "Tank Melee",
+      "slots": "1 Chi Blast, 2 Paralyzing Wind, 3 Tsunami Strike, 4 Spinning Dragon"
+    },
+    {
       "id": "legion-revenant",
       "name": "Legion Revenant",
       "desc": "Upkeep the buff, then both debuffs, then Anathema. The bar is addressed by name, so the slot order above is only a note.",
