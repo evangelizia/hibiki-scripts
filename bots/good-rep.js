@@ -15,6 +15,20 @@ var OPEN = 9;    // 1952 unlocks once Corrosive Philtre writes 9 to that slot
 // r10 holds a Burning Loyalist beside a Traitor Lieutenant.
 var FARM = ["r10", "Left"];
 
+// Null is "no record yet" as well as "none", so a missing answer keeps the
+// farm going instead of ending it.
+var faction = bot.rep("Good");
+if (faction != null) {
+    if (bot.memory.rank !== faction.rank) {
+        bot.memory.rank = faction.rank;
+        bot.log("good: rank " + faction.rank);
+    }
+    if (faction.rank >= 10) {
+        bot.finish("good: rank 10");
+        return true;
+    }
+}
+
 if (!bot.checkpoint("poisonforest")) return;
 if (!bot.travel("poisonforest")) return;
 

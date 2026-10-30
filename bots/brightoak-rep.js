@@ -4,8 +4,8 @@
 /// timeout: 30
 
 // Quest 4667 sits on the Brightoak chain slot, so it only opens once the
-// fourth rune is done: the story bot gets there. Faction rank is not reported
-// by the client, so this runs until it is stopped.
+// fourth rune is done: the story bot gets there. The faction rank is the
+// client's own number, so the run ends itself at rank 10.
 var QUEST = 4667;
 var PUZZLE = 3984;
 
@@ -13,6 +13,20 @@ var PUZZLE = 3984;
 // past it, so the puzzle quest is open; not done means the story is unfinished.
 function opened() {
     return bot.quest.done(4666);
+}
+
+// Null is "no record yet" as well as "none", so a missing answer keeps the
+// farm going instead of ending it.
+var faction = bot.rep("Brightoak");
+if (faction != null) {
+    if (bot.memory.rank !== faction.rank) {
+        bot.memory.rank = faction.rank;
+        bot.log("brightoak: rank " + faction.rank);
+    }
+    if (faction.rank >= 10) {
+        bot.finish("brightoak: rank 10");
+        return true;
+    }
 }
 
 if (!bot.checkpoint("elfhame")) return;

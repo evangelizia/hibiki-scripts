@@ -22,8 +22,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 4398,
-      "sha256": "f16b7323888b86fcc39efea3c08b27e16a7aec2c8ca6c96583576d45fa724a69",
+      "size": 4800,
+      "sha256": "514df7183c08fd24d33ad8961ef1bbcdc91dcf0f95820aec2e10f47d3c24602f",
       "path": "bots/arcangrove-rep.js",
       "mode": "loop",
       "timeout": 30
@@ -35,8 +35,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 1513,
-      "sha256": "dd0e1e7e47a97f5f4651784f101144c3380fe8b153794383ae7d6967f2fcb29d",
+      "size": 1930,
+      "sha256": "ed80d14fc61fc5a5a427101e56a86098996d1fb027eb613ce1f8fe99c40c1b4e",
       "path": "bots/brightoak-rep.js",
       "mode": "loop",
       "timeout": 30
@@ -256,8 +256,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 1380,
-      "sha256": "a6d0337cef49f39ef85207278169a6509853ba5d33308b1cbcdabf3ee9384b0a",
+      "size": 1780,
+      "sha256": "384ada98097b17383b4b578a9eed6ff098816007526468b2826a4c0844f01579",
       "path": "bots/good-rep.js",
       "mode": "loop",
       "timeout": 30

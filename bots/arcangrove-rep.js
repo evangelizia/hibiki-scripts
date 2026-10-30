@@ -4,8 +4,8 @@
 /// timeout: 30
 
 // Quests 794-801 are repeatable and share no chain slot: faction rank is the
-// only progress, and the client never reports it, so this runs until it is
-// stopped by hand at rank 10.
+// only progress, and it is the client's own number, so the run ends itself at
+// rank 10.
 //
 // The two farm cells do not drop the same items, and the request rates are
 // nothing alike: a "Defeated Seed Spitter" is one kill, a "Gorillaphant Tusk"
@@ -56,6 +56,20 @@ function handIn() {
         if (bot.quest.ready(QUESTS[i]) && !bot.quest.turnIn(QUESTS[i])) return false;
     }
     return true;
+}
+
+// Null is "no record yet" as well as "none", so a missing answer keeps the
+// farm going instead of ending it.
+var faction = bot.rep("Arcangrove");
+if (faction != null) {
+    if (bot.memory.rank !== faction.rank) {
+        bot.memory.rank = faction.rank;
+        bot.log("arcangrove: rank " + faction.rank);
+    }
+    if (faction.rank >= 10) {
+        bot.finish("arcangrove: rank 10");
+        return true;
+    }
 }
 
 if (!bot.checkpoint("arcangrove")) return;
