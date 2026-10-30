@@ -13,8 +13,9 @@ var GOOD_END = 597;
 var EVIL_END = 598;
 
 // Red's axe is the reward of 515 and the hand-in for 514, so the bag says
-// which of the two is next.
+// which of the two is next. The reward lands on the floor, not in the bag.
 var AXE = 2926;
+var AXE_NAME = "Red's Big Wolf Slaying Axe";
 
 // The Greenguard trials come before Red lends the axe. They repeat and carry
 // no chain slot, so the run keeps its own place in them.
@@ -141,14 +142,22 @@ function lilred() {
     }
 
     if (!bot.quest.active(515)) {
-        // The hand-in went out, so the axe is a reward still on its way and
-        // the accept must not start the quest over.
+        // The quest left the tracker, so the axe is on the floor: it is a drop
+        // of Red's quest, not a bag reward. The sent flag keeps the accept from
+        // starting 515 over while the pickup is on its way.
         if (bot.memory.sent515) {
+            if (!bot.pickDrop(AXE_NAME)) return;
             bot.memory.late = (bot.memory.late || 0) + 1;
             if (bot.memory.late > 600) bot.fail("quest 515 paid no axe");
             return;
         }
         bot.quest.accept(515);
+        return;
+    }
+    // The hand-in is out; the resend is the turn-in's own job, and farming the
+    // documents again would cost the item the hand-in already spent.
+    if (bot.memory.sent515) {
+        bot.quest.turnIn(515);
         return;
     }
     if (bot.quest.ready(515)) {

@@ -48,8 +48,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 9619,
-      "sha256": "8c98f05d34e26236eea90510152aa08499d1b11adbe793f81fc7ac3dea7fe94c",
+      "size": 10085,
+      "sha256": "a9b698d297807eb3a0d50244fbda12a28154e370febc2ed935a9e2f73e703df6",
       "path": "bots/chaos-4-wolfwing.js",
       "mode": "once",
       "timeout": 60
