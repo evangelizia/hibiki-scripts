@@ -55,18 +55,41 @@ if (!bot.travel("arcangrove")) return;
 // only accepted together: a quest accepted back the moment it was turned in
 // comes back empty, and the next pass farms that quest again instead of
 // finishing the round, so the other cell is never reached.
-var started = false;
+//
+// "Any quest is active" is not "the round has started": after the first accept
+// that is true, and the other seven would never be asked for.
+var allActive = true;
 for (var s = 0; s < QUESTS.length; s++) {
-    if (bot.quest.active(QUESTS[s])) started = true;
+    if (!bot.quest.active(QUESTS[s])) allActive = false;
 }
 
-if (!started) {
-    for (var take = 0; take < QUESTS.length; take++) {
-        if (!bot.quest.accept(QUESTS[take])) return;
+if (!allActive) {
+    // Either the round has not started, or it is being handed in. Anything
+    // ready goes first, and only when nothing is left does the next round
+    // begin: that is what keeps a hand-in from being undone by a re-accept.
+    var ready = false;
+    for (var r = 0; r < QUESTS.length; r++) {
+        if (bot.quest.ready(QUESTS[r])) ready = true;
     }
-    return;
+
+    if (ready) {
+        for (var turn = 0; turn < QUESTS.length; turn++) {
+            if (bot.quest.ready(QUESTS[turn]) && !bot.quest.turnIn(QUESTS[turn])) return;
+        }
+        return;
+    }
+
+    // Everything handed in: start the next round. The pass ends here, so a
+    // farm that never finishes still restarts its own timeout instead of
+    // running into it.
+    for (var take = 0; take < QUESTS.length; take++) {
+        if (!bot.quest.active(QUESTS[take]) && !bot.quest.accept(QUESTS[take])) return;
+    }
+    return true;
 }
 
+// A half-finished round keeps working; the hand-ins wait until both cells have
+// supplied what their quests ask for.
 var gorillaDone = complete(GORILLA.cell[0], GORILLA.items);
 var spitterDone = complete(SPITTER.cell[0], SPITTER.items);
 
@@ -88,8 +111,8 @@ if (!spitterDone) {
 }
 
 phase("turning in");
-for (var turn = 0; turn < QUESTS.length; turn++) {
-    if (bot.quest.ready(QUESTS[turn]) && !bot.quest.turnIn(QUESTS[turn])) return;
+for (var hand = 0; hand < QUESTS.length; hand++) {
+    if (bot.quest.ready(QUESTS[hand]) && !bot.quest.turnIn(QUESTS[hand])) return;
 }
 
 bot.memory.phase = "";

@@ -9,8 +9,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 3250,
-      "sha256": "b8dbb802b076dd76d924e7fc4cce5d083d50c200dda815a975614b3385654da4",
+      "size": 4293,
+      "sha256": "f69158793f1bbdf622c07ae8ab07fe5420b92c133613f91856705be566efcc05",
       "path": "bots/arcangrove-rep.js",
       "mode": "loop",
       "timeout": 30
