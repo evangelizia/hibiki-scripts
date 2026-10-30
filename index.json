@@ -252,12 +252,12 @@
     {
       "id": "good-rep",
       "name": "Good REP",
-      "desc": "Burning Loyalists in PoisonForest for Good reputation.",
+      "desc": "Good reputation without the PoisonForest story: slimes, then tombs.",
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 1780,
-      "sha256": "384ada98097b17383b4b578a9eed6ff098816007526468b2826a4c0844f01579",
+      "size": 1967,
+      "sha256": "d6e81e2ada8e061f0ccfc7733df5872ee153d1954b05d31615e958aef5300e8f",
       "path": "bots/good-rep.js",
       "mode": "loop",
       "timeout": 30
