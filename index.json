@@ -137,6 +137,20 @@
       "class": "Oracle",
       "role": "Power Caster",
       "slots": "1 Foresight, 2 Group Divination, 3 Foretell, 4 Edited Timeline"
+    },
+    {
+      "id": "stonecrusher",
+      "name": "StoneCrusher",
+      "desc": "Support rotation built on party buffs and the Bruised ramp.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 1608,
+      "sha256": "4f7d165b6e1b03d6f5443ce8d15b7c8235c080140e669e36bb2eb6d71de9d373",
+      "path": "skills/stonecrusher.js",
+      "class": "StoneCrusher",
+      "role": "Defensive Caster",
+      "slots": "1 Stalagmite, 2 Echoing Earth, 3 Land's Embrace, 4 Endless Fissure"
     }
   ]
 }
