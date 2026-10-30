@@ -250,6 +250,19 @@
       "timeout": 60
     },
     {
+      "id": "good-rep",
+      "name": "Good REP",
+      "desc": "Burning Loyalists in PoisonForest for Good reputation.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 1380,
+      "sha256": "a6d0337cef49f39ef85207278169a6509853ba5d33308b1cbcdabf3ee9384b0a",
+      "path": "bots/good-rep.js",
+      "mode": "loop",
+      "timeout": 30
+    },
+    {
       "id": "shadowbattleon-exp",
       "name": "Shadow Battleon EXP",
       "desc": "Doomed Trolls at Enter, handing in both Shadow Hunt quests.",
