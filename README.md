@@ -62,6 +62,10 @@ unique.
 
 `refs.ts` has every call, its arguments, and what it returns.
 
+Before writing a step that takes a map item or reads an item count, read
+`docs/ISSUES.md` in the shell repository: it lists the engine behaviours that
+answer differently than they read, the evidence, and the workaround to copy.
+
 ## Adding one
 
 ```sh
