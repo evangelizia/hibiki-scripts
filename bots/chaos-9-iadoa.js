@@ -113,13 +113,13 @@ var GROUND = {
     2516: [[1582, "deepchaos", 3]]
 };
 
-// The client takes one map item a second whichever id is asked for, and the
-// engine holds two sends 1.2 s apart. Keep the whole step just above that as
-// well, so no pass can put a burst on the socket: six requests in one tick
-// leaves only the first in the pipe and the step asks that spot for ever.
-var PACE = 1400;
-// The cap is a minute of passes, and it starts over whenever the quest's own
-// counts move, so it only ends a step whose map item will never pay.
+// One request per pass, two seconds apart: a live session took the Span's six
+// that way, and both the client and the engine drop a second send that comes
+// sooner. The pass that follows moves on to the next spot, so a request that
+// never left is simply asked again on the next round.
+var PACE = 2000;
+// A pass every two seconds, so this is twenty minutes before a step is written
+// off, and it starts over whenever the quest's own counts move.
 var SWEEPS = 600;
 
 function ground(id) {
@@ -140,6 +140,7 @@ function ground(id) {
         bot.memory[key + "have"] = counts;
         bot.memory[key] = 0;
     }
+    if (!open) return true;
     var sweeps = (bot.memory[key] || 0) + 1;
     bot.memory[key] = sweeps;
     if (sweeps > SWEEPS) {
@@ -149,32 +150,18 @@ function ground(id) {
     var now = Date.now();
     if (now - (bot.memory[key + "at"] || 0) < PACE) return false;
     bot.memory[key + "at"] = now;
+    // The round always moves on, whether the last request left the client or
+    // not: the quest's own count is the only thing that decides the step, and
+    // a spot it already took is asked again for nothing.
+    var at = bot.memory[key + "n"] || 0;
+    bot.memory[key + "n"] = at + 1;
     for (var j = 0; j < spots.length; j++) {
-        var spot = spots[j];
-        var bag = spot[3];
-        var have = bag != null ? bot.item(bag) : null;
-        // A named bag id answers for itself, so the engine can drive it.
-        if (have != null) {
-            if (have >= spot[2]) continue;
-            if (!bot.travel(spot[1])) return false;
-            if (!bot.mapItem(spot[0], spot[2], bag)) return false;
-            continue;
-        }
-        // Nothing to read back, and the engine clears its count for the spot
-        // in front of it, so the requests are counted here or the loop keeps
-        // asking the first one for ever.
-        var sent = bot.memory[key + "s" + j] || 0;
-        if (sent >= spot[2]) continue;
+        var spot = spots[(at + j) % spots.length];
+        var have = spot[3] != null ? bot.item(spot[3]) : null;
+        if (have != null && have >= spot[2]) continue;
         if (!bot.travel(spot[1])) return false;
-        bot.memory[key + "s" + j] = sent + 1;
         bot.mapItem(spot[0], spot[2]);
         return false;
-    }
-    if (!open) return true;
-    // Every request went out and the quest still wants more: one was dropped,
-    // so the round starts over.
-    for (var k = 0; k < spots.length; k++) {
-        bot.memory[key + "s" + k] = 0;
     }
     return false;
 }
