@@ -217,8 +217,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 8841,
-      "sha256": "ad9ded3b74ac5d6c69bd0afb40568d85c33d42a2a664a76f5d58a1bf9a3d6f7b",
+      "size": 8936,
+      "sha256": "153c4c76905d8d97f15611396e9eb18e05f1aa5982e2ebabbd549d7146dc87f0",
       "path": "bots/chaos-9-iadoa.js",
       "mode": "once",
       "timeout": 120

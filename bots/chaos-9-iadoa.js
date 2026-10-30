@@ -86,9 +86,9 @@ var FIGHT = spots({
 });
 
 // The map items, as each map's own script asks for them: spot, map, and the
-// number of requests. Nothing here names the bag item, because the map decides
-// which one a spot pays - quest 2239 takes six notes from six spots and quest
-// 2378 takes eight orbs and a tome from two.
+// number of requests. The Span's six are handed over by the tutors rather than
+// picked off the floor, so a refused request leaves nothing to read but the
+// quest's own count.
 var GROUND = {
     2239: [[1358, "thespan", 1], [1359, "thespan", 1], [1360, "thespan", 1],
            [1361, "thespan", 1], [1362, "thespan", 1], [1363, "thespan", 1]],
@@ -111,27 +111,29 @@ var GROUND = {
     2516: [[1582, "deepchaos", 3]]
 };
 
+// A sweep is a round of requests, so sixty is a few minutes of traffic; the cap
+// only ends a step whose map item will not pay at all.
+var SWEEPS = 60;
+
 function ground(id) {
     var spots = GROUND[id];
     if (spots == null) {
         bot.fail("quest " + id + " wants an item no step gives");
         return false;
     }
+    // The quest's own count is the receipt. A spot the server refused changes
+    // nothing, so a quest still short sweeps again instead of sitting on a
+    // request that was already dropped.
     var key = "ground" + id;
-    if (!bot.memory[key]) {
-        for (var i = 0; i < spots.length; i++) {
-            if (!bot.travel(spots[i][1])) return false;
-            if (!bot.mapItem(spots[i][0], spots[i][2])) return false;
-        }
-        bot.memory[key] = true;
+    var sweeps = (bot.memory[key] || 0) + 1;
+    bot.memory[key] = sweeps;
+    if (sweeps > SWEEPS) {
+        bot.fail("quest " + id + " took nothing from " + spots[0][1]);
         return false;
     }
-    // The requests went out; the slot is the receipt. A spot that pays nothing
-    // leaves this waiting, so it is counted instead.
-    var tries = (bot.memory[key + "tries"] || 0) + 1;
-    bot.memory[key + "tries"] = tries;
-    if (tries > 200) {
-        bot.fail("quest " + id + " took nothing from " + spots[0][1]);
+    for (var i = 0; i < spots.length; i++) {
+        if (!bot.travel(spots[i][1])) return false;
+        if (!bot.mapItem(spots[i][0], spots[i][2])) return false;
     }
 }
 
