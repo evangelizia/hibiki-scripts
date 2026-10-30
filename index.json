@@ -123,6 +123,20 @@
       "class": "LightCaster",
       "role": "Offensive Caster",
       "slots": "1 Lingering Light, 2 Light Blast, 3 Illuminate, 4 Burned by Light"
+    },
+    {
+      "id": "oracle",
+      "name": "Oracle",
+      "desc": "Support rotation: heal and buffs first, damage cut behind them.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 1455,
+      "sha256": "5fc0faf9810dce0837524b834f068139e7c15a8dd0f0eacc4fc7c68467fe6698",
+      "path": "skills/oracle.js",
+      "class": "Oracle",
+      "role": "Power Caster",
+      "slots": "1 Foresight, 2 Group Divination, 3 Foretell, 4 Edited Timeline"
     }
   ]
 }
