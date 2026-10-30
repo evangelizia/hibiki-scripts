@@ -29,6 +29,32 @@
       "timeout": 30
     },
     {
+      "id": "brightoak-rep",
+      "name": "Brightoak REP",
+      "desc": "Elfhame puzzle runs for Brightoak reputation.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 1513,
+      "sha256": "dd0e1e7e47a97f5f4651784f101144c3380fe8b153794383ae7d6967f2fcb29d",
+      "path": "bots/brightoak-rep.js",
+      "mode": "loop",
+      "timeout": 30
+    },
+    {
+      "id": "brightoak-story",
+      "name": "Brightoak Saga",
+      "desc": "The Brightoak chain, Rivensylth through Gaiazor.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 10484,
+      "sha256": "fbd491d043aff0f6c0d81782c3fb0f65f7b50f5ab23a438d9a488e77158a03a9",
+      "path": "bots/brightoak-story.js",
+      "mode": "once",
+      "timeout": 180
+    },
+    {
       "id": "chaos-1-escherion",
       "name": "13 Lords of Chaos: Escherion",
       "desc": "The first Lord of Chaos, Chiral Valley up to Escherion.",
@@ -103,6 +129,19 @@
       "size": 6011,
       "sha256": "b1814b482d7c98f768fc9f7c5af76bb4b1ec61a8cc5b3d047598e56db600b6c9",
       "path": "bots/chaos-6-ledgermayne.js",
+      "mode": "once",
+      "timeout": 90
+    },
+    {
+      "id": "chaos-7-tibicenas",
+      "name": "13 Lords of Chaos: Tibicenas",
+      "desc": "The seventh Lord of Chaos, the Sandsea up to Tibicenas.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 4013,
+      "sha256": "f7a1eb8936230165867e58152a9e8f8bd2f0981a579229a55721f797f4bf3e35",
+      "path": "bots/chaos-7-tibicenas.js",
       "mode": "once",
       "timeout": 90
     },
