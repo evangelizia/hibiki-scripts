@@ -42,23 +42,28 @@ var PRODUCE = {
 var ORDER = [1948, 1949, 1950, 1951, 1952, 1953, 1954, 1955];
 
 // Where that item comes from, one action per pass.
-function source(id, qty) {
-    var from = SOURCE[id];
+//
+// With a bag id the count is the total to hold, not the shortfall: asking for
+// `need - have` stops the step at that number and then answers done for ever,
+// which is a stall on any partial stack. A kill step is the other way round,
+// because it counts down from what is missing.
+function source(want) {
+    var from = SOURCE[want.id];
     if (from == null) {
-        if (PRODUCE[id] != null) {
-            act(PRODUCE[id]);
+        if (PRODUCE[want.id] != null) {
+            act(PRODUCE[want.id]);
             return;
         }
-        bot.fail("item " + id + " has no source in this run");
+        bot.fail("item " + want.id + " has no source in this run");
         return;
     }
     if (!bot.travel(MAP)) return;
     if (from.spot) {
-        bot.mapItem(from.spot, qty, id);
+        bot.mapItem(from.spot, want.need, want.id);
         return;
     }
     if (!bot.moveToCell(from.cell)) return;
-    bot.kill(from.monster, qty);
+    bot.kill(from.monster, want.need - want.have);
 }
 
 // Accept, hand in, or go and get the next thing the quest asks for.
@@ -86,7 +91,7 @@ function act(id) {
     for (var i = 0; i < wants.length; i++) {
         var want = wants[i];
         if (want.have < want.need) {
-            source(want.id, want.need - want.have);
+            source(want);
             return;
         }
     }

@@ -48,8 +48,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 10484,
-      "sha256": "fbd491d043aff0f6c0d81782c3fb0f65f7b50f5ab23a438d9a488e77158a03a9",
+      "size": 10703,
+      "sha256": "6066581f8b16ae01cf359d2388dc7b2375dbb2a4b935e93874142f64d3d6a77e",
       "path": "bots/brightoak-story.js",
       "mode": "once",
       "timeout": 180
@@ -269,8 +269,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 3792,
-      "sha256": "61c9d759e153fe23c7aca709b01f460b1bfafeb1e4650bec7a30c882deafcbf2",
+      "size": 4099,
+      "sha256": "566e89782f42e2cfa84030d0c602e1da58de2da1118f013acb81179ddf307c15",
       "path": "bots/poisonforest-story.js",
       "mode": "once",
       "timeout": 180

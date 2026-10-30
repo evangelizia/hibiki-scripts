@@ -152,7 +152,11 @@ function spirit() {
 }
 
 // Where that item comes from, one action per pass.
-function source(id, qty) {
+// Where that item comes from, one action per pass.
+//
+// `bot.mapItem` and `bot.buy` count the bag absolutely, so they take `need`
+// and not the shortfall; `bot.kill` counts down from what is missing.
+function source(id, need, have) {
     var from = SOURCE[id];
     if (from == null) {
         bot.fail("item " + id + " has no source in this run");
@@ -165,15 +169,15 @@ function source(id, qty) {
     if (!bot.travel(from.map)) return;
     if (from.map == "rivensylth" && !spirit()) return;
     if (from.shop) {
-        bot.buy(from.shop, id, qty);
+        bot.buy(from.shop, id, need);
         return;
     }
     if (from.spot) {
-        bot.mapItem(from.spot, qty, id);
+        bot.mapItem(from.spot, need, id);
         return;
     }
     if (!bot.moveToCell(from.cell, from.pad)) return;
-    bot.kill(from.monster, qty);
+    bot.kill(from.monster, need - have);
 }
 
 // Accept, hand in, or go and get the next thing the quest asks for.
@@ -203,7 +207,7 @@ function act(step) {
     for (var i = 0; i < wants.length; i++) {
         var want = wants[i];
         if (want.have < want.need) {
-            source(want.id, want.need - want.have);
+            source(want.id, want.need, want.have);
             return;
         }
     }
