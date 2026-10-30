@@ -139,6 +139,20 @@
       "slots": "1 Foresight, 2 Group Divination, 3 Foretell, 4 Edited Timeline"
     },
     {
+      "id": "shaman",
+      "name": "Shaman",
+      "desc": "Solo boss rotation built on the Elemental Embrace ramp.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 1270,
+      "sha256": "ee64ec49a37f1246d035b20267ccaff15b3d1bb5db4ba99859665c928db39693",
+      "path": "skills/shaman.js",
+      "class": "Shaman",
+      "role": "Power Caster",
+      "slots": "1 Ancestor's Flame, 2 Hydrophobia, 3 Dry Lightning, 4 Elemental Embrace"
+    },
+    {
       "id": "stonecrusher",
       "name": "StoneCrusher",
       "desc": "Support rotation built on party buffs and the Bruised ramp.",
