@@ -113,14 +113,15 @@ function ground(id) {
         bot.fail("quest " + id + " wants an item no step gives");
         return false;
     }
+    // One spot at a time, remembering how far the list got: the engine forgets
+    // its counts the moment the spot changes, so a loop that starts over every
+    // tick would re-send the first spot and never reach the last.
     var key = "ground" + id;
-    if (!bot.memory[key]) {
-        for (var i = 0; i < spots.length; i++) {
-            if (!bot.travel(spots[i][1])) return false;
-            if (!bot.mapItem(spots[i][0], spots[i][2])) return false;
-        }
-        bot.memory[key] = true;
-        return false;
+    var at = bot.memory[key] || 0;
+    while (at < spots.length) {
+        if (!bot.travel(spots[at][1])) return false;
+        if (!bot.mapItem(spots[at][0], spots[at][2])) return false;
+        bot.memory[key] = ++at;
     }
     // The requests went out; the slot is the receipt. A spot that pays nothing
     // leaves this waiting, so it is counted instead.
