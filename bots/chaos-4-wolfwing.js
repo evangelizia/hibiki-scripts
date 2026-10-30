@@ -82,18 +82,27 @@ function work(id, table) {
 }
 
 // A trial has no chain slot and can be taken again, so its hand-in leaving the
-// tracker is the only finish it has; the run remembers it from there.
+// tracker is the only finish it has. The send and the answer are different
+// passes: the hand-in is marked out first, so the accept cannot restart it.
 function trial(q) {
     if (bot.memory[q.id]) return true;
 
+    var sent = bot.memory["sent" + q.id];
+
     if (!bot.quest.active(q.id)) {
+        if (sent) {
+            bot.memory[q.id] = true;
+            return true;
+        }
         bot.quest.accept(q.id);
         return false;
     }
     if (bot.quest.ready(q.id)) {
-        if (bot.quest.turnIn(q.id)) bot.memory[q.id] = true;
+        bot.memory["sent" + q.id] = true;
+        bot.quest.turnIn(q.id);
         return false;
     }
+    if (sent) return false;
 
     var wants = bot.quest.wants(q.id);
     if (wants == null) return false;
@@ -132,8 +141,9 @@ function lilred() {
     }
 
     if (!bot.quest.active(515)) {
-        // The axe is a reward, so it can land a pass after the hand-in does.
-        if (bot.memory.paid) {
+        // The hand-in went out, so the axe is a reward still on its way and
+        // the accept must not start the quest over.
+        if (bot.memory.sent515) {
             bot.memory.late = (bot.memory.late || 0) + 1;
             if (bot.memory.late > 600) bot.fail("quest 515 paid no axe");
             return;
@@ -142,7 +152,8 @@ function lilred() {
         return;
     }
     if (bot.quest.ready(515)) {
-        if (bot.quest.turnIn(515)) bot.memory.paid = true;
+        bot.memory.sent515 = true;
+        bot.quest.turnIn(515);
         return;
     }
     collect(515, DOCS);
