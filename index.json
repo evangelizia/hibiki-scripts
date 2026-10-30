@@ -335,6 +335,20 @@
       "slots": "1 Lingering Light, 2 Light Blast, 3 Illuminate, 4 Burned by Light"
     },
     {
+      "id": "master-ranger",
+      "name": "Master Ranger",
+      "desc": "Two-target farm rotation built on the Death Mark ramp.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 1385,
+      "sha256": "83c450184d19c4a2bd6bdd6cd91427b0ff77e925db04b4df9a62df89f3ed418a",
+      "path": "skills/master-ranger.js",
+      "class": "Master Ranger, Ranger",
+      "role": "Dodge Melee",
+      "slots": "1 Mark for Death, 2 Explosive Bolt, 3 Vampiric Shot, 4 Scorching Arrow"
+    },
+    {
       "id": "oracle",
       "name": "Oracle",
       "desc": "Support rotation: heal and buffs first, damage cut behind them.",
