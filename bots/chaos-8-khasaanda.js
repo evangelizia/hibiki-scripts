@@ -60,14 +60,15 @@ var FIGHT = spots({
     10175: ["Khasaanda", "dreamnexus", "r17a", "Up"]
 });
 
-// The ground items, as the map's own script asks for them: spot, map, and the
-// number of requests. Nothing here names the bag item, because the map decides
-// which one a spot pays - quest 1281 takes three from three spots.
+// The ground items, as the map's own script asks for them: item id, map, and
+// the number of requests. The fourth number, where it is known, is the bag item
+// that spot pays, and naming it is what makes the engine wait for the count to
+// rise instead of firing the whole burst into a spawn that is still down.
 var GROUND = {
     1232: [[523, "bloodtusk", 1]],
     1234: [[525, "crossroads", 1]],
     1235: [[521, "crossroads", 10]],
-    1237: [[524, "crossroads", 5], [522, "crossroads", 5]],
+    1237: [[522, "crossroads", 5, 8931], [524, "crossroads", 5, 8936]],
     1280: [[553, "ravinetemple", 1]],
     1281: [[554, "ravinetemple", 5], [555, "ravinetemple", 10], [556, "ravinetemple", 10]],
     1283: [[557, "ravinetemple", 10]],
@@ -93,8 +94,9 @@ function ground(id) {
     var key = "ground" + id;
     if (!bot.memory[key]) {
         for (var i = 0; i < spots.length; i++) {
-            if (!bot.travel(spots[i][1])) return false;
-            if (!bot.mapItem(spots[i][0], spots[i][2])) return false;
+            var spot = spots[i];
+            if (!bot.travel(spot[1])) return false;
+            if (!bot.mapItem(spot[0], spot[2], spot[3])) return false;
         }
         bot.memory[key] = true;
         return false;
