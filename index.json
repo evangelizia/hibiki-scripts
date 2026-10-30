@@ -159,6 +159,19 @@
       "timeout": 120
     },
     {
+      "id": "chaos-9-iadoa",
+      "name": "13 Lords of Chaos: Iadoa",
+      "desc": "The ninth Lord of Chaos, from the Span of Time to the Iadoa fight.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 8841,
+      "sha256": "ad9ded3b74ac5d6c69bd0afb40568d85c33d42a2a664a76f5d58a1bf9a3d6f7b",
+      "path": "bots/chaos-9-iadoa.js",
+      "mode": "once",
+      "timeout": 120
+    },
+    {
       "id": "chaos-prologue",
       "name": "13 Lords of Chaos: Prologue",
       "desc": "The 13 Lords of Chaos prologue, up to the Forest of Chaos.",
