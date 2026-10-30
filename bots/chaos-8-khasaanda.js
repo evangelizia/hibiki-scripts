@@ -86,10 +86,12 @@ var GROUND = {
     1471: [[738, "dreamnexus", 10, 10215], [739, "dreamnexus", 11, 10172]]
 };
 
-// The engine paces every map item, whatever its id, at the client's own one
-// second, so a pass only moves one request and a long list is minutes of
-// traffic. The cap starts over whenever the quest's own counts move, so it only
-// ends a step whose map item will never pay.
+// The client takes one map item a second whichever id is asked for, and the
+// engine holds two sends 1.2 s apart. Keep the whole step just above that as
+// well, so no pass can put a burst on the socket and starve the later spots.
+var PACE = 1400;
+// The cap starts over whenever the quest's own counts move, so it only ends a
+// step whose map item will never pay.
 var SWEEPS = 600;
 
 function ground(id) {
@@ -114,6 +116,9 @@ function ground(id) {
         bot.fail("quest " + id + " took nothing from " + spots[0][1]);
         return false;
     }
+    var now = Date.now();
+    if (now - (bot.memory[key + "at"] || 0) < PACE) return false;
+    bot.memory[key + "at"] = now;
     for (var j = 0; j < spots.length; j++) {
         var spot = spots[j];
         if (!bot.travel(spot[1])) return false;

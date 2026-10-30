@@ -88,10 +88,12 @@ var FIGHT = spots({
 // The map items, as each map's own script asks for them: spot, map, and the
 // number of requests. The Span's six are handed over by the tutors rather than
 // picked off the floor, so a refused request leaves nothing to read but the
-// quest's own count.
+// quest's own count. Lucretia's 1358 is the one the relay log showed paying a
+// note, so it names it and is asked for no more once it is held.
 var GROUND = {
-    2239: [[1358, "thespan", 1], [1359, "thespan", 1], [1360, "thespan", 1],
-           [1361, "thespan", 1], [1362, "thespan", 1], [1363, "thespan", 1]],
+    2239: [[1358, "thespan", 1, 13231], [1359, "thespan", 1],
+           [1360, "thespan", 1], [1361, "thespan", 1],
+           [1362, "thespan", 1], [1363, "thespan", 1]],
     2241: [[1365, "timelibrary", 3]],
     2242: [[1366, "timelibrary", 2]],
     2243: [[1367, "timelibrary", 1]],
@@ -111,8 +113,11 @@ var GROUND = {
     2516: [[1582, "deepchaos", 3]]
 };
 
-// The engine paces every map item, whatever its id, at the client's own one
-// second, so a pass only moves one request and six notes take seven seconds.
+// The client takes one map item a second whichever id is asked for, and the
+// engine holds two sends 1.2 s apart. Keep the whole step just above that as
+// well, so no pass can put a burst on the socket: six requests in one tick
+// leaves only the first in the pipe and the step asks that spot for ever.
+var PACE = 1400;
 // The cap is a minute of passes, and it starts over whenever the quest's own
 // counts move, so it only ends a step whose map item will never pay.
 var SWEEPS = 600;
@@ -139,9 +144,12 @@ function ground(id) {
         bot.fail("quest " + id + " took nothing from " + spots[0][1]);
         return false;
     }
+    var now = Date.now();
+    if (now - (bot.memory[key + "at"] || 0) < PACE) return false;
+    bot.memory[key + "at"] = now;
     for (var j = 0; j < spots.length; j++) {
         if (!bot.travel(spots[j][1])) return false;
-        if (!bot.mapItem(spots[j][0], spots[j][2])) return false;
+        if (!bot.mapItem(spots[j][0], spots[j][2], spots[j][3])) return false;
     }
 }
 
