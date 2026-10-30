@@ -51,12 +51,27 @@ function phase(name) {
 if (!bot.checkpoint("arcangrove")) return;
 if (!bot.travel("arcangrove")) return;
 
-for (var take = 0; take < QUESTS.length; take++) {
-    if (!bot.quest.active(QUESTS[take]) && !bot.quest.accept(QUESTS[take])) return;
+// A round is all eight in the tracker. They are only handed in together and
+// only accepted together: a quest accepted back the moment it was turned in
+// comes back empty, and the next pass farms that quest again instead of
+// finishing the round, so the other cell is never reached.
+var started = false;
+for (var s = 0; s < QUESTS.length; s++) {
+    if (bot.quest.active(QUESTS[s])) started = true;
 }
 
+if (!started) {
+    for (var take = 0; take < QUESTS.length; take++) {
+        if (!bot.quest.accept(QUESTS[take])) return;
+    }
+    return;
+}
+
+var gorillaDone = complete(GORILLA.cell[0], GORILLA.items);
+var spitterDone = complete(SPITTER.cell[0], SPITTER.items);
+
 // Quest items land in the bag with the kill, so there is no floor drop here.
-if (!complete(GORILLA.cell[0], GORILLA.items)) {
+if (!gorillaDone) {
     phase("gorillaphants");
     if (!bot.moveToCell(GORILLA.cell[0], GORILLA.cell[1])) return;
     if (!bot.kill("*", 5)) return;
@@ -64,7 +79,7 @@ if (!complete(GORILLA.cell[0], GORILLA.items)) {
     return;
 }
 
-if (!complete(SPITTER.cell[0], SPITTER.items)) {
+if (!spitterDone) {
     phase("seed spitters");
     if (!bot.moveToCell(SPITTER.cell[0], SPITTER.cell[1])) return;
     if (!bot.kill("*", 5)) return;
@@ -72,9 +87,6 @@ if (!complete(SPITTER.cell[0], SPITTER.items)) {
     return;
 }
 
-// Both halves are in the bag before anything is handed in: a turn-in part way
-// through would accept the quest again with nothing held and send the bot
-// straight back to the cell it just finished.
 phase("turning in");
 for (var turn = 0; turn < QUESTS.length; turn++) {
     if (bot.quest.ready(QUESTS[turn]) && !bot.quest.turnIn(QUESTS[turn])) return;
