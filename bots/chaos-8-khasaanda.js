@@ -83,8 +83,12 @@ var GROUND = {
     1458: [[718, "orecavern", 5, 10139]],
     1469: [[734, "dreamnexus", 1], [735, "dreamnexus", 1],
            [736, "dreamnexus", 1], [737, "dreamnexus", 1]],
-    1471: [[738, "dreamnexus", 10], [739, "dreamnexus", 11]]
+    1471: [[738, "dreamnexus", 10, 10215], [739, "dreamnexus", 11, 10172]]
 };
+
+// A sweep is a round of requests, so sixty is a few minutes of traffic; the cap
+// only ends a step whose map item will not pay at all.
+var SWEEPS = 60;
 
 function ground(id) {
     var spots = GROUND[id];
@@ -92,22 +96,20 @@ function ground(id) {
         bot.fail("quest " + id + " wants an item no step gives");
         return false;
     }
+    // The quest's own count is the receipt. A spot the server refused changes
+    // nothing, so a quest still short sweeps again instead of sitting on a
+    // request that was already dropped.
     var key = "ground" + id;
-    if (!bot.memory[key]) {
-        for (var i = 0; i < spots.length; i++) {
-            var spot = spots[i];
-            if (!bot.travel(spot[1])) return false;
-            if (!bot.mapItem(spot[0], spot[2], spot[3])) return false;
-        }
-        bot.memory[key] = true;
+    var sweeps = (bot.memory[key] || 0) + 1;
+    bot.memory[key] = sweeps;
+    if (sweeps > SWEEPS) {
+        bot.fail("quest " + id + " took nothing from " + spots[0][1]);
         return false;
     }
-    // The requests went out; the slot is the receipt. A spot that pays
-    // nothing leaves this waiting, so it is counted instead.
-    var tries = (bot.memory[key + "tries"] || 0) + 1;
-    bot.memory[key + "tries"] = tries;
-    if (tries > 200) {
-        bot.fail("quest " + id + " took nothing from " + spots[0][1]);
+    for (var i = 0; i < spots.length; i++) {
+        var spot = spots[i];
+        if (!bot.travel(spot[1])) return false;
+        if (!bot.mapItem(spot[0], spot[2], spot[3])) return false;
     }
 }
 

@@ -204,8 +204,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 7999,
-      "sha256": "223d8cafcf85d84b4ce3988ef2f19a545a8dbdf2e2f64e613f1247b5df51630d",
+      "size": 8130,
+      "sha256": "463ff1894ed32a1be82e2de1726e35599521bf2a9c91e3d2019b882ce2b94aa7",
       "path": "bots/chaos-8-khasaanda.js",
       "mode": "once",
       "timeout": 120
