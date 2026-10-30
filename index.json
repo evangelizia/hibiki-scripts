@@ -68,6 +68,19 @@
       "timeout": 60
     },
     {
+      "id": "chaos-6-ledgermayne",
+      "name": "13 Lords of Chaos: Ledgermayne",
+      "desc": "The sixth Lord of Chaos, Arcangrove up to Ledgermayne.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 6011,
+      "sha256": "b1814b482d7c98f768fc9f7c5af76bb4b1ec61a8cc5b3d047598e56db600b6c9",
+      "path": "bots/chaos-6-ledgermayne.js",
+      "mode": "once",
+      "timeout": 90
+    },
+    {
       "id": "chaos-prologue",
       "name": "13 Lords of Chaos: Prologue",
       "desc": "The 13 Lords of Chaos prologue, up to the Forest of Chaos.",
