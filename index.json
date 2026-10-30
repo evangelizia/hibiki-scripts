@@ -81,6 +81,19 @@
       "timeout": 120
     },
     {
+      "id": "chaos-11-xiang",
+      "name": "13 Lords of Chaos: Xiang",
+      "desc": "The eleventh Lord of Chaos, from BattleOff to the mirror portal.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 8393,
+      "sha256": "d7e57abfcb66adb4343c1434b370c3e51c55522115a5a4c22dff09b6d7e45371",
+      "path": "bots/chaos-11-xiang.js",
+      "mode": "once",
+      "timeout": 120
+    },
+    {
       "id": "chaos-2-vath",
       "name": "13 Lords of Chaos: Vath",
       "desc": "The second Lord of Chaos, Dwarfhold up to Vath.",
