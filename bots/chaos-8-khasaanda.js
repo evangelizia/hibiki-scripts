@@ -86,9 +86,11 @@ var GROUND = {
     1471: [[738, "dreamnexus", 10, 10215], [739, "dreamnexus", 11, 10172]]
 };
 
-// A sweep is a round of requests, so sixty is a few minutes of traffic; the cap
-// only ends a step whose map item will not pay at all.
-var SWEEPS = 60;
+// The engine paces every map item, whatever its id, at the client's own one
+// second, so a pass only moves one request and a long list is minutes of
+// traffic. The cap starts over whenever the quest's own counts move, so it only
+// ends a step whose map item will never pay.
+var SWEEPS = 600;
 
 function ground(id) {
     var spots = GROUND[id];
@@ -96,18 +98,24 @@ function ground(id) {
         bot.fail("quest " + id + " wants an item no step gives");
         return false;
     }
-    // The quest's own count is the receipt. A spot the server refused changes
-    // nothing, so a quest still short sweeps again instead of sitting on a
-    // request that was already dropped.
     var key = "ground" + id;
+    var wants = bot.quest.wants(id);
+    var have = "";
+    for (var i = 0; wants != null && i < wants.length; i++) {
+        have += wants[i].have + "/" + wants[i].need + " ";
+    }
+    if (bot.memory[key + "have"] != have) {
+        bot.memory[key + "have"] = have;
+        bot.memory[key] = 0;
+    }
     var sweeps = (bot.memory[key] || 0) + 1;
     bot.memory[key] = sweeps;
     if (sweeps > SWEEPS) {
         bot.fail("quest " + id + " took nothing from " + spots[0][1]);
         return false;
     }
-    for (var i = 0; i < spots.length; i++) {
-        var spot = spots[i];
+    for (var j = 0; j < spots.length; j++) {
+        var spot = spots[j];
         if (!bot.travel(spot[1])) return false;
         if (!bot.mapItem(spot[0], spot[2], spot[3])) return false;
     }
