@@ -55,6 +55,19 @@
       "timeout": 60
     },
     {
+      "id": "chaos-5-kimberly",
+      "name": "13 Lords of Chaos: Kimberly",
+      "desc": "The fifth Lord of Chaos, Mythsong up to Kimberly.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 3452,
+      "sha256": "972638e65155b03fdcb4485476efe9c9c1c53ec3ffbd94769dcaa4603e19cb64",
+      "path": "bots/chaos-5-kimberly.js",
+      "mode": "once",
+      "timeout": 60
+    },
+    {
       "id": "chaos-prologue",
       "name": "13 Lords of Chaos: Prologue",
       "desc": "The 13 Lords of Chaos prologue, up to the Forest of Chaos.",
