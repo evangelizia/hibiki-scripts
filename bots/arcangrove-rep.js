@@ -48,11 +48,10 @@ function phase(name) {
     bot.log("arcangrove: " + name);
 }
 
-// The fight belongs to the kill step, and it only ends when the next count is
-// asked for. A round that fills mid-run never asks again, so the room would
-// stay aggroed for the whole hand-in; end it here instead.
+// One kill per pass. The fight ends on the death that reaches the count, so a
+// run never outlives the item it was fighting for, and the hand-in starts with
+// nothing swinging.
 function handIn() {
-    bot.stopCombat();
     for (var i = 0; i < QUESTS.length; i++) {
         if (bot.quest.ready(QUESTS[i]) && !bot.quest.turnIn(QUESTS[i])) return false;
     }
@@ -106,7 +105,7 @@ var spitterDone = complete(SPITTER.cell[0], SPITTER.items);
 if (!gorillaDone) {
     phase("gorillaphants");
     if (!bot.moveToCell(GORILLA.cell[0], GORILLA.cell[1])) return;
-    if (!bot.kill("*", 5)) return;
+    if (!bot.kill("*", 1)) return;
     bot.aggroRoom();
     return;
 }
@@ -114,7 +113,7 @@ if (!gorillaDone) {
 if (!spitterDone) {
     phase("seed spitters");
     if (!bot.moveToCell(SPITTER.cell[0], SPITTER.cell[1])) return;
-    if (!bot.kill("*", 5)) return;
+    if (!bot.kill("*", 1)) return;
     bot.aggroRoom();
     return;
 }

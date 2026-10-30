@@ -50,7 +50,6 @@ if (!bot.pickDrop("Burning Heart")) return;
 if (held()) {
     phase("turning in");
     if (!bot.moveToCell(FLAME[0], FLAME[1])) return;
-    bot.stopCombat();
     if (!bot.quest.turnIn(QUEST)) return;
     bot.memory.phase = "";
     return true;

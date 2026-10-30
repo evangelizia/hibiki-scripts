@@ -9,8 +9,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 1980,
-      "sha256": "ce0bf9bb6a9cf6e35effac2271343b5f0d047c212910085f306baee8471cf09d",
+      "size": 1958,
+      "sha256": "6995cdb7d01ee423c31db790062a57efa775a835ec140584a712282e2d827ed1",
       "path": "bots/arcangrove-rep-mafic.js",
       "mode": "loop",
       "timeout": 30
@@ -22,8 +22,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 4456,
-      "sha256": "adc185a39edaaca9387e29cd37ebc3dffb658db1d82807272b32819399d08be5",
+      "size": 4398,
+      "sha256": "f16b7323888b86fcc39efea3c08b27e16a7aec2c8ca6c96583576d45fa724a69",
       "path": "bots/arcangrove-rep.js",
       "mode": "loop",
       "timeout": 30
