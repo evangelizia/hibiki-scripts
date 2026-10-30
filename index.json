@@ -42,6 +42,19 @@
       "timeout": 60
     },
     {
+      "id": "chaos-4-wolfwing",
+      "name": "13 Lords of Chaos: Wolfwing",
+      "desc": "The fourth Lord of Chaos, Darkovia up to Wolfwing.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 9299,
+      "sha256": "8b74b0bc61b1a7dd4513cf87ada16fed2c185e7c1509e582d0ac2317906f8ad6",
+      "path": "bots/chaos-4-wolfwing.js",
+      "mode": "once",
+      "timeout": 60
+    },
+    {
       "id": "chaos-prologue",
       "name": "13 Lords of Chaos: Prologue",
       "desc": "The 13 Lords of Chaos prologue, up to the Forest of Chaos.",
