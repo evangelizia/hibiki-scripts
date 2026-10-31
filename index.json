@@ -334,8 +334,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 1046,
-      "sha256": "af31b42db8c842a06ede00b7f5688b054b8fecad92a672d03734c69061e22142",
+      "size": 2553,
+      "sha256": "9b4530b7de28cf839e7f1040cc980b6da196b863e6db1f0493b1c8511cb26d93",
       "path": "bots/somnia-rep.js",
       "mode": "loop",
       "timeout": 45
