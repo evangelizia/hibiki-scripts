@@ -250,6 +250,19 @@
       "timeout": 60
     },
     {
+      "id": "gold-battlegrounde",
+      "name": "Gold: BattleGround E",
+      "desc": "Ice Lords at r2, handing in Level 61-75 until the gold target is met.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 1613,
+      "sha256": "852094618f7fbe5b0ecd113e8d62b7dcc6ac8719b7acfff0fa5b446bf672d4cf",
+      "path": "bots/gold-battlegrounde.js",
+      "mode": "loop",
+      "timeout": 0
+    },
+    {
       "id": "good-rep",
       "name": "Good REP",
       "desc": "Burning Loyalists in PoisonForest for Good reputation.",
