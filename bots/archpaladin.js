@@ -39,6 +39,13 @@ var SKULL = ["underworld", "r5", "Left", "Skull Warrior"];
 var ENERGY = 11285;
 var SCROLL = 12934;
 
+// Spirit Orb is a quest reward, not a drop: 2082 and 2083 pay five each and
+// both are repeatable, so the orb farm is those two turn-ins. The essence and
+// the dust they want come off the same skeletons.
+var ORB = 12184;
+var ORB_QUESTS = [2082, 2083];
+var DUST = 598;
+
 // DoomVault guards its own deeper rooms with its own story: the map carries a
 // guard on r4 and r5 that sends the avatar back to Enter with "No skipping
 // ahead" while the DoomVault chain is under 3, so the three quests that write
@@ -67,7 +74,6 @@ var HUNT = {
     37124: ["dreadfight", "Enter", "Spawn", "*"],
     6697: ["battleunderb", "Enter", "Spawn", "Skeleton Warrior"],
     598: ["battleunderb", "Enter", "Spawn", "Skeleton Warrior"],
-    12184: ["battleunderb", "Enter", "Spawn", "Skeleton Warrior"],
     18350: ["timevoid", "Frame1", "Left", "Ephemerite"],
     11343: ["xantown", "r8", "Left", "Xan"],
     27719: ["northstar", "r12", "Left", "Karok the Fallen"],
@@ -162,6 +168,26 @@ function energy() {
     hunt(HUNT[ENERGY]);
 }
 
+// Spirit Orb waits on two turn-ins rather than a drop. Both are repeatable and
+// both are fed by the skeletons the dust and the essence come from, so the
+// step is: keep the two quests in the tracker, hand in whichever fills, swing
+// at the room in between.
+function orbs() {
+    for (var i = 0; i < ORB_QUESTS.length; i++) {
+        if (bot.quest.active(ORB_QUESTS[i])) continue;
+        phase("orb quest " + ORB_QUESTS[i]);
+        bot.quest.accept(ORB_QUESTS[i]);
+        return false;
+    }
+    for (var j = 0; j < ORB_QUESTS.length; j++) {
+        if (!bot.quest.ready(ORB_QUESTS[j])) continue;
+        phase("orb turn-in " + ORB_QUESTS[j]);
+        bot.quest.turnIn(ORB_QUESTS[j]);
+        return false;
+    }
+    return hunt(HUNT[DUST]);
+}
+
 // The scroll is a quest of its own: one ArchMage Ink turns into five of them,
 // and the ink is a merge the SpellCrafting shop only offers at rank 8.
 function scroll() {
@@ -210,6 +236,7 @@ function vault() {
 // The turn-in list decides the step, so no quantity is copied into the bot.
 function source(itemId) {
     if (itemId == ENERGY) return energy();
+    if (itemId == ORB) return orbs();
     if (itemId == SCROLL) return scroll();
     if (itemId == HORN) {
         if (!vault()) return false;
