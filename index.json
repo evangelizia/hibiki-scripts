@@ -302,6 +302,19 @@
       "timeout": 10
     },
     {
+      "id": "spellcrafting-rep",
+      "name": "SpellCrafting REP",
+      "desc": "Ember and Hallow ink scrolls for SpellCrafting reputation, to rank 10.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 4796,
+      "sha256": "e4e963eb8fb727c7f891a0572b1de81b4a7381c056768f126f762ba35207520d",
+      "path": "bots/spellcrafting-rep.js",
+      "mode": "loop",
+      "timeout": 45
+    },
+    {
       "id": "xan-lair",
       "name": "Xan's Lair: Andesi and Warlic",
       "desc": "The rest of Xan's story, from Andesi's burning town to Warlic's sealed library.",
