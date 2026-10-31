@@ -256,8 +256,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 1614,
-      "sha256": "be4c3fb29eaceee75bc2350c53f3df87448107422ac5d35b8caa31b8ad0523f4",
+      "size": 1678,
+      "sha256": "6846ec3e8b8fe1a191bcf04d7375742f4df44b6933ec2afb508337ea0b4745a4",
       "path": "bots/gold-battlegrounde.js",
       "mode": "loop",
       "timeout": 10

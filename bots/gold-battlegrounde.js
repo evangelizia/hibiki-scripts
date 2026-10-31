@@ -12,8 +12,9 @@ var CELL = "r2";
 var PAD = "Center";
 // The quest wants ten of its item, so a batch is one hand-in.
 var BATCH = 10;
-// Stop here. Edit it freely; the run ends cleanly when the purse reaches it.
-var TARGET = 1000000;
+// Stop here. The purse stops at 100,000,000 in the client, so that is the
+// ceiling a farm can reach; lower it if you only want a top-up.
+var TARGET = 100000000;
 
 // Gold is read from the client every pass. A build that keeps it elsewhere
 // answers null, and a farm that cannot see the purse must not mistake silence
