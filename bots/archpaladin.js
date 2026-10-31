@@ -39,6 +39,18 @@ var SKULL = ["underworld", "r5", "Left", "Skull Warrior"];
 var ENERGY = 11285;
 var SCROLL = 12934;
 
+// DoomVault guards its own deeper rooms with its own story: the map carries a
+// guard on r4 and r5 that sends the avatar back to Enter with "No skipping
+// ahead" while the DoomVault chain is under 3, so the three quests that write
+// it run first. Each one lives in the room the previous one opens.
+var VAULT = 126;
+var VAULT_STEPS = [
+    [2952, "r1", "Left", "Grim Soldier"],
+    [2953, "r2", "Left", "Grim Fighter"],
+    [2954, "r3", "Left", "Grim Fire Mage"]
+];
+var HORN = 18093;
+
 // item -> map, cell, pad, and the monster that pays it. Everything the quests
 // count in hundreds is here too: the fight is one kill a pass either way, and
 // a real item waits on the floor, so the pickup comes before the next kill.
@@ -174,10 +186,31 @@ function scroll() {
     return false;
 }
 
+// The three DoomVault quests that open the way to Binky. The chain value is
+// the resume point and the step order is the room order, so a save in the
+// middle of the walk picks up on the quest it stopped on.
+function vault() {
+    var value = bot.quest.value(VAULT);
+    if (value == null) return false;
+    if (value >= VAULT_STEPS.length) return true;
+    for (var i = 0; i < VAULT_STEPS.length; i++) {
+        if (value >= i + 1) continue;
+        var step = VAULT_STEPS[i];
+        phase("doomvault " + step[0]);
+        bot.quest.farm(step[0], step[3], "doomvault", step[1], step[2]);
+        return false;
+    }
+    return false;
+}
+
 // The turn-in list decides the step, so no quantity is copied into the bot.
 function source(itemId) {
     if (itemId == ENERGY) return energy();
     if (itemId == SCROLL) return scroll();
+    if (itemId == HORN) {
+        if (!vault()) return false;
+        return hunt(HUNT[HORN]);
+    }
     if (HUNT[itemId] != null) return hunt(HUNT[itemId]);
     if (BUY[itemId] != null) return buy(BUY[itemId], itemId);
     bot.fail("archpaladin: no source for item " + itemId);
