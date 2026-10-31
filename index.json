@@ -256,11 +256,11 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 1613,
-      "sha256": "852094618f7fbe5b0ecd113e8d62b7dcc6ac8719b7acfff0fa5b446bf672d4cf",
+      "size": 1614,
+      "sha256": "be4c3fb29eaceee75bc2350c53f3df87448107422ac5d35b8caa31b8ad0523f4",
       "path": "bots/gold-battlegrounde.js",
       "mode": "loop",
-      "timeout": 0
+      "timeout": 10
     },
     {
       "id": "good-rep",

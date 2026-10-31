@@ -1,7 +1,7 @@
 /// name: Gold: BattleGround E
 /// desc: Ice Lords at r2, handing in Level 61-75 until the gold target is met.
 /// once: false
-/// timeout: 0
+/// timeout: 10
 
 // The reference farm (Skua's CoreFarms.BattleGroundE) registers both the
 // "Level 46-60" and the "Level 61-75" quest here. Only the E salle's monsters
