@@ -1,9 +1,9 @@
 /// name: ArchPaladin
-/// desc: The ArchPaladin class, Good rank 10 through the last of its quests.
+/// desc: The ArchPaladin class chain, from the seal to the class item.
 /// once: true
 /// timeout: 0
 
-// One pass is the whole chain - the reputation alone is three thousand kills -
+// One pass is the whole chain, and the energy leg alone is a thousand kills,
 // so the pass budget is off and every dead end ends the run with its reason.
 
 // 5463 to 5470 all write the same chain slot, one value each, so that slot is
@@ -16,15 +16,11 @@ var CLASS_SHOP = 1303;
 var CLASS_ITEM = 36920;
 
 // Two turn-ins are bought for gold and both want Good rank 10 - the seal and
-// the hand grenade - and ArchPaladin is a Good class, so the reputation comes
-// first. 1952 pays a thousand a hand-in; it opens once the PoisonForest story
-// writes its last value to slot 46.
+// the hand grenade - so the reputation is a prerequisite, not a step here.
+// Farming it belongs to the Good REP bot, which sits behind the PoisonForest
+// story; this script only asks and refuses to start without it.
 var GOOD = "Good";
 var GOOD_RANK = 10;
-var REP_QUEST = 1952;
-var REP_SLOT = 46;
-var REP_OPEN = 9;
-var REP_FARM = ["r10", "Left"];
 
 // Undead Energy does not drop until the spellbook's own chain writes 5.
 var DOOMWOOD = [2066, 2067, 2082, 2083, 2084];
@@ -227,34 +223,15 @@ function quest(id) {
     return false;
 }
 
-// Ten Burning Loyalists a hand-in, and the same step shape the Good REP bot
-// runs: the tracker answers, the chain slot does not move with the hand-ins.
-function goodRep() {
-    var chain = bot.quest.value(REP_SLOT);
-    if (chain == null) return;
-    if (chain < REP_OPEN) {
-        bot.fail("archpaladin: the PoisonForest chain is not done; run poisonforest-story first");
-        return;
-    }
-    phase("good rep");
-    if (!bot.checkpoint("poisonforest")) return;
-    if (!bot.travel("poisonforest")) return;
-    if (!start(REP_QUEST)) return;
-    if (bot.quest.ready(REP_QUEST)) {
-        bot.quest.turnIn(REP_QUEST);
-        return;
-    }
-    if (!bot.moveToCell(REP_FARM[0], REP_FARM[1])) return;
-    if (!bot.kill("Burning Loyalist", 1)) return;
-    bot.aggroRoom();
-}
-
 var value = bot.quest.value(CHAIN);
 if (value == null) return;
 
+// Null is "no answer yet" and also "nothing under that name", so a missing
+// answer keeps the pass going instead of ending the run.
 var good = bot.rep(GOOD);
-if (good == null || good.rank < GOOD_RANK) {
-    goodRep();
+if (good == null) return;
+if (good.rank < GOOD_RANK) {
+    bot.fail("archpaladin: Good rank " + GOOD_RANK + " is needed for the seal and the hand grenade; run good-rep first");
     return;
 }
 
