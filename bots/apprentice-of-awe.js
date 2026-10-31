@@ -13,27 +13,19 @@ var NPC = ["Crossroad", "Left"];
 var DRACO_SLOT = 26;
 var DRACO_VALUE = 22;
 
-// Where each turn-in item comes from, and the exits to walk. A pair is the
-// destination cell and the pad the map itself lands on for that leg.
+// Where each turn-in item comes from. The client sends the destination cell
+// and pad in one move, so a step names the fight cell itself and not the
+// exits on the way to it.
 var SOURCES = {
     60665: { map: "uppercity", monster: "Chaos Egg",
-             route: [["r1", "Right"], ["r2", "Right"], ["r3", "Right"]] },
+             cell: "r3", pad: "Left" },
     60666: { map: "lycanwar", monster: "Edvard", draco: true,
-             route: [["War", "Left"], ["War2", "Right"], ["Boss", "Right"]] },
+             cell: "Boss", pad: "Left" },
     60667: { map: "odokuro", monster: "O-dokuro",
-             route: [["Boss", "Right"]] },
+             cell: "Boss", pad: "Right" },
     1121:  { map: "cornelis", monster: "Stone Golem", drop: "Block Head",
-             route: [["Side1", "Left"], ["Side3", "Right"],
-                     ["Side4", "Right"], ["Side5", "Left"]] }
+             cell: "Side5", pad: "Left" }
 };
-
-// One exit per pass: moveToCell answers only after the snapshot shows the pad.
-function walk(route) {
-    for (var i = 0; i < route.length; i++) {
-        if (!bot.moveToCell(route[i][0], route[i][1])) return false;
-    }
-    return true;
-}
 
 function gather(want) {
     var from = SOURCES[want.id];
@@ -50,7 +42,7 @@ function gather(want) {
         }
     }
     if (!bot.travel(from.map)) return;
-    if (!walk(from.route)) return;
+    if (!bot.moveToCell(from.cell, from.pad)) return;
     if (from.drop != null && !bot.pickDrop(from.drop)) return;
     bot.kill(from.monster, want.need - want.have);
 }
