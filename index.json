@@ -328,6 +328,19 @@
       "timeout": 10
     },
     {
+      "id": "somnia-rep",
+      "name": "Somnia REP",
+      "desc": "Somnia reputation to rank 10, three repeatable quests.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 1046,
+      "sha256": "af31b42db8c842a06ede00b7f5688b054b8fecad92a672d03734c69061e22142",
+      "path": "bots/somnia-rep.js",
+      "mode": "loop",
+      "timeout": 45
+    },
+    {
       "id": "spellcrafting-rep",
       "name": "SpellCrafting REP",
       "desc": "Ember and Hallow ink scrolls for SpellCrafting reputation, to rank 10.",
