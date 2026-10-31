@@ -300,6 +300,32 @@
       "path": "bots/shadowbattleon-exp.js",
       "mode": "loop",
       "timeout": 10
+    },
+    {
+      "id": "xan-lair",
+      "name": "Xan's Lair: Andesi and Warlic",
+      "desc": "The rest of Xan's story, from Andesi's burning town to Warlic's sealed library.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 2948,
+      "sha256": "7d6234e32daef36f4d5ef9f5239a7d7c91631f1eced4a327a786adfe55301680",
+      "path": "bots/xan-lair.js",
+      "mode": "once",
+      "timeout": 90
+    },
+    {
+      "id": "xan-volcano",
+      "name": "Xan's Lair: Volcano",
+      "desc": "The Volcano half of Xan's story, twenty levels from the Lava Golem to Magman.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 3436,
+      "sha256": "ffae3b11729ad3dd5b25f67bed987c33bc22e219e36c01f6bb6dbe5727180751",
+      "path": "bots/xan-volcano.js",
+      "mode": "once",
+      "timeout": 120
     }
   ],
   "skills": [
