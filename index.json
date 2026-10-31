@@ -35,8 +35,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 10531,
-      "sha256": "ad08008f0a7854da1b67586e327bf0cd4767bea072c29d1d917df4b4599f1e7a",
+      "size": 10770,
+      "sha256": "53defe66b7fdaf6f8798081d3637d92a81c60765aa23128eef9bba2f4cf60543",
       "path": "bots/archpaladin.js",
       "mode": "once",
       "timeout": 0

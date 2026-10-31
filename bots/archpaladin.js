@@ -43,6 +43,10 @@ var SCROLL = 12934;
 // guard on r4 and r5 that sends the avatar back to Enter with "No skipping
 // ahead" while the DoomVault chain is under 3, so the three quests that write
 // it run first. Each one lives in the room the previous one opens.
+//
+// The room is named because a private one is a dead end for a second account:
+// the shell's private-room setting would invent a number, and the only way in
+// is to already know it. Room 1 is the public room the server hands out.
 var VAULT = 126;
 var VAULT_STEPS = [
     [2952, "r1", "Left", "Grim Soldier"],
@@ -55,7 +59,7 @@ var HORN = 18093;
 // count in hundreds is here too: the fight is one kill a pass either way, and
 // a real item waits on the floor, so the pickup comes before the next kill.
 var HUNT = {
-    18093: ["doomvault", "r5", "Left", "Binky"],
+    18093: ["doomvault-1", "r5", "Left", "Binky"],
     22341: ["banished", "r14", "Left", "Desterrat Moya"],
     25144: ["doomkitten", "Enter", "Spawn", "DoomKitten"],
     11285: ["battleunderb", "Enter", "Spawn", "Skeleton Warrior"],
@@ -197,7 +201,7 @@ function vault() {
         if (value >= i + 1) continue;
         var step = VAULT_STEPS[i];
         phase("doomvault " + step[0]);
-        bot.quest.farm(step[0], step[3], "doomvault", step[1], step[2]);
+        bot.quest.farm(step[0], step[3], "doomvault-1", step[1], step[2]);
         return false;
     }
     return false;
