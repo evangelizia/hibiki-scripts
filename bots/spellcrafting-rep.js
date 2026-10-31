@@ -18,6 +18,11 @@
 // The two drops are shop currency, not quest items, so they land on the floor
 // and wait for a click: the pickup comes before the next kill, because a fight
 // started over a drop is a fight the drop may not survive.
+//
+// Both quests also pay ten scrolls for every hand-in, and a scroll stack is 99,
+// so the loop takes a bag slot roughly every tenth pass - and the merge it needs
+// is refused outright when the bag is full. The scrolls are the price of that
+// slot, so they are sold as they arrive.
 var EMBER = {
     quest: 2299,
     ink: 13280,
@@ -46,6 +51,9 @@ var PARCHMENT = 18871;
 var RUNETHREAD = 18872;
 var RANK = 10;
 var SWITCH = 4;
+
+// What the two hand-ins pay, both batches of ten.
+var SCROLLS = [12881, 12909];
 
 function phase(name) {
     if (bot.memory.phase === name) return;
@@ -112,6 +120,15 @@ function craft(path) {
         return false;
     }
     if (bot.quest.ready(path.quest)) return bot.quest.turnIn(path.quest);
+
+    for (var i = 0; i < SCROLLS.length; i++) {
+        var scrolls = bot.item(SCROLLS[i]);
+        if (scrolls == null) return false;
+        if (scrolls > 0) {
+            bot.sell(SCROLLS[i], scrolls);
+            return false;
+        }
+    }
 
     // The shop sells one ink for one drop, so a pass buys one. Asking for the
     // whole stack instead would spend the pass waiting on the shop timer.
