@@ -3,6 +3,19 @@
   "repo": "evangelizia/hibiki-scripts",
   "bots": [
     {
+      "id": "apprentice-of-awe",
+      "name": "Apprentice of Awe",
+      "desc": "The Dawn of Lore in the Museum, then Trissa's armor.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 3085,
+      "sha256": "ba9a65b7348a9446baec1f1c191f9eeb102a87fa3b779dce009dfcb6975d80ac",
+      "path": "bots/apprentice-of-awe.js",
+      "mode": "once",
+      "timeout": 60
+    },
+    {
       "id": "arcangrove-rep-mafic",
       "name": "Arcangrove REP (Mafic)",
       "desc": "Mafic Dragon hearts for Arcangrove reputation.",
