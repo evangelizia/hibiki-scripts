@@ -9,8 +9,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 2741,
-      "sha256": "b2d42c9dedbd14e8539f5fd4fc414d039a1907c614de0d56a74f7c1e6f4e6f0a",
+      "size": 3170,
+      "sha256": "94f6fef633de790a5eb4bad42add97980e952628cd8805666220d5f2d5a50c20",
       "path": "bots/apprentice-of-awe.js",
       "mode": "once",
       "timeout": 60
