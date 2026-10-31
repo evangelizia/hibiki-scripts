@@ -29,6 +29,19 @@
       "timeout": 30
     },
     {
+      "id": "archpaladin",
+      "name": "ArchPaladin",
+      "desc": "The ArchPaladin class, Good rank 10 through the last of its quests.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 9905,
+      "sha256": "cfa6e87335147654449950bd258ae22be9394c2e446280321a789227ebaae7f1",
+      "path": "bots/archpaladin.js",
+      "mode": "once",
+      "timeout": 0
+    },
+    {
       "id": "brightoak-rep",
       "name": "Brightoak REP",
       "desc": "Elfhame puzzle runs for Brightoak reputation.",
