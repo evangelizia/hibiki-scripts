@@ -8,9 +8,9 @@
 //
 // After that there is no chain slot to count - both crafting quests are
 // repeatable on slot -1 - so the rank is the only progress. 2299 pays 250 for
-// one Ember Ink and 2322 pays 2,550 for one Hallow Ink, and both inks are
-// bought for a single drop, which is why the reference switches paths at rank 4
-// and never comes back.
+// one Ember Ink and 2322 pays 2,550 for one Hallow Ink, and one merge costs a
+// single drop and yields five inks, which is why the reference switches paths
+// at rank 4 and never comes back.
 //
 // One pass does one thing: hand in, buy one ink, or kill for a drop. A hand-in
 // ends the pass, so the next one reads the new counts with nothing swinging.
@@ -130,12 +130,14 @@ function craft(path) {
         }
     }
 
-    // The shop sells one ink for one drop, so a pass buys one. Asking for the
-    // whole stack instead would spend the pass waiting on the shop timer.
-    if (drop > 0) {
+    // One merge costs a single drop and lands the shop item's own batch, five
+    // inks, so the bag has to be empty of ink before another drop is spent.
+    // Asking for one more than held instead would merge again on the next pass,
+    // and the stack would fill until the client refused the purchase.
+    if (ink < 1 && drop > 0) {
         phase(path.monster.toLowerCase() + ": shop");
         if (!bot.travel(SHOP_MAP)) return false;
-        bot.buy(SHOP, path.ink, ink + 1);
+        bot.buy(SHOP, path.ink, 1);
         return false;
     }
 

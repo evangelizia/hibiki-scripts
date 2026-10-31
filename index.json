@@ -308,8 +308,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 5412,
-      "sha256": "5a53aa173c31882fb207c78b694a312a0fbc73a4e1a7db008552415a2870ffb0",
+      "size": 5583,
+      "sha256": "86dc13b372706df8b3ce16e755879041cc89a25644ddc15559dc4f03ee58eec2",
       "path": "bots/spellcrafting-rep.js",
       "mode": "loop",
       "timeout": 45
