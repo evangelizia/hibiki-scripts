@@ -423,6 +423,20 @@
       "slots": "1 Scorched Steel, 2 Impale, 3 Incapacitate, 4 Dragon's Bane"
     },
     {
+      "id": "healer",
+      "name": "Healer",
+      "desc": "Support order built on Inhibition and Radiance upkeep.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 1493,
+      "sha256": "9a2dbf7939c36ffbf1aa47a9cefcc006d9b9fae9ed640fde74875db75c468963",
+      "path": "skills/healer.js",
+      "class": "Healer",
+      "role": "Defensive Caster",
+      "slots": "1 Heartbeat, 2 Healing Word, 3 Energy Flow, 4 Holy"
+    },
+    {
       "id": "imperial-chunin",
       "name": "Imperial Chunin",
       "desc": "Two-target farm rotation built on short cooldowns.",
@@ -463,6 +477,20 @@
       "class": "LightCaster",
       "role": "Offensive Caster",
       "slots": "1 Lingering Light, 2 Light Blast, 3 Illuminate, 4 Burned by Light"
+    },
+    {
+      "id": "mage",
+      "name": "Mage",
+      "desc": "Solo boss rotation built on Frozen into Scorched detonation.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 1735,
+      "sha256": "aa3f309df8fbd191c4bcb5642059744d34731dc691bbc03978a4a4256ed4d429",
+      "path": "skills/mage.js",
+      "class": "Mage",
+      "role": "Offensive Caster",
+      "slots": "1 Fireball, 2 Ice Shard, 3 Explosion, 4 Arcane Shield"
     },
     {
       "id": "master-ranger",
@@ -519,6 +547,20 @@
       "class": "StoneCrusher",
       "role": "Defensive Caster",
       "slots": "1 Stalagmite, 2 Echoing Earth, 3 Land's Embrace, 4 Endless Fissure"
+    },
+    {
+      "id": "warrior",
+      "name": "Warrior",
+      "desc": "Tank order built on Armor Shred and guard windows.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 1639,
+      "sha256": "0bf9d03d4d51794d1080f7394003f0c9ecd54c4b54053a5e1a04ad6273d10f96",
+      "path": "skills/warrior.js",
+      "class": "Warrior",
+      "role": "Tank Melee",
+      "slots": "1 Decisive Strike, 2 Imbalancing Strike, 3 Prepared Strike, 4 On Guard"
     }
   ]
 }
