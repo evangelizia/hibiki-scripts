@@ -354,6 +354,19 @@
       "timeout": 45
     },
     {
+      "id": "vampire-rep",
+      "name": "Vampire REP",
+      "desc": "Twisted Paw heads in Safiria for Vampire reputation.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 754,
+      "sha256": "9fd876e89fdd86abce5279f504865d1465ee20ebcc80cb33a11100536208cd21",
+      "path": "bots/vampire-rep.js",
+      "mode": "loop",
+      "timeout": 45
+    },
+    {
       "id": "xan-lair",
       "name": "Xan's Lair: Andesi and Warlic",
       "desc": "The rest of Xan's story, from Andesi's burning town to Warlic's sealed library.",
