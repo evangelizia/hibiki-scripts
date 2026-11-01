@@ -360,8 +360,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 1291,
-      "sha256": "5c79f4264f260d7e53701d4260f237a7e3c64546103ae61082e9cccb5e32afb8",
+      "size": 2217,
+      "sha256": "05c27c002b217cd2ca5cae436dde74a3ac60f583c77792247e0c2ef0df9015d8",
       "path": "bots/vampire-rep.js",
       "mode": "loop",
       "timeout": 45

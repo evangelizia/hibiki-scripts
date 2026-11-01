@@ -42,4 +42,33 @@ if (chain < 12) {
     return;
 }
 
-if (!bot.quest.farm(522, "Twisted Paw", "safiria", "c11", "Right")) return;
+// 522 is repeatable on chain 26, so its first completion leaves done() true
+// forever and farm() answers at once without re-accepting. The server still
+// restarts it - the reference loops it the same way - so this step accepts,
+// kills and hands in by hand and never asks done().
+function farm522() {
+    if (!bot.quest.active(522)) {
+        bot.quest.accept(522);
+        return false;
+    }
+    if (bot.quest.ready(522)) {
+        if (!bot.quest.turnIn(522)) return false;
+        return false;
+    }
+
+    var wants = bot.quest.wants(522);
+    if (wants == null) return false;
+    var short = 0;
+    for (var i = 0; i < wants.length; i++) {
+        if (wants[i].have == null) return false;
+        if (wants[i].have < wants[i].need) short += wants[i].need - wants[i].have;
+    }
+    if (short < 1) return false;
+
+    if (!bot.travel("safiria")) return false;
+    if (!bot.moveToCell("c11", "Right")) return false;
+    bot.kill("Twisted Paw", short);
+    return false;
+}
+
+if (!farm522()) return;
