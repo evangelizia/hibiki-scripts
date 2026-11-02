@@ -3,6 +3,19 @@
   "repo": "evangelizia/hibiki-scripts",
   "bots": [
     {
+      "id": "age-of-ruin-story",
+      "name": "Age of Ruin Story",
+      "desc": "The full Age of Ruin saga, Termina Temple to the Citrinitas Forge.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 27504,
+      "sha256": "33b5a9e08c3f0b4f52086bf6d419dc2ceabaaf56a558d812cbf6da9d4edfd8b0",
+      "path": "bots/age-of-ruin-story.js",
+      "mode": "once",
+      "timeout": 300
+    },
+    {
       "id": "apprentice-of-awe",
       "name": "Apprentice of Awe",
       "desc": "The Dawn of Lore in the Museum, then Trissa's armor.",
