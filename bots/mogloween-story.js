@@ -371,25 +371,26 @@ function source(id, want) {
 
 // A leg whose monsters cannot be paired to bags by name. Rotate them, one
 // kill per pass; the quest wants are the only thing that ends the leg.
-function each(id) {
+// A leg whose monsters cannot be paired to bags by name. The kill side
+// sticks to one cell until it proves dry, then tries the next cell or
+// monster on the list. Progress on any want resets the drought count.
+function hunt(id) {
     var list = MULTI[id];
     if (list == null || list.length === 0) { bot.fail("quest " + id + " has no monsters in this run"); return; }
-    var n = bot.memory["each" + id] || 0;
-    bot.memory["each" + id] = n + 1;
-    var from = list[n % list.length];
-    if (!bot.travel(from.map)) return;
-    if (!bot.moveToCell(from.cell)) return;
-    if (!bot.kill(from.monster, 1)) return;
-    if (!bot.pickDrop()) return;
-}
-
-// A leg that needs both kills and map items, but the kills cannot be
-// paired to bags by name. Alternate kill and spot passes. The kill side
-// sticks to one cell until it proves dry, then tries the next cell that
-// holds the name; the spot side fills the map in between.
-function mixkill(id) {
-    var list = MULTI[id];
-    if (list == null || list.length === 0) { bot.fail("quest " + id + " has no monsters in this run"); return; }
+    var wants = bot.quest.wants(id);
+    if (wants == null) return;
+    var have = 0;
+    for (var i = 0; i < wants.length; i++) have += wants[i].have;
+    var key = "dry" + id;
+    if (have !== bot.memory[key + "have"]) { bot.memory[key + "have"] = have; bot.memory[key] = 0; }
+    else {
+        var dry = (bot.memory[key] || 0) + 1;
+        bot.memory[key] = dry;
+        if (dry >= 6 && list.length > 1) {
+            bot.memory[key] = 0;
+            bot.memory["cell" + id] = (bot.memory["cell" + id] || 0) + 1;
+        }
+    }
     var n = bot.memory["each" + id] || 0;
     bot.memory["each" + id] = n + 1;
     var ci = bot.memory["cell" + id] || 0;
@@ -400,25 +401,12 @@ function mixkill(id) {
     if (!bot.pickDrop()) return;
 }
 
+// A leg that needs both kills and map items. Alternate the sticky kill
+// side with the spot rotation; either side finishing ends the leg.
 function mix(id) {
     var n = bot.memory["mix" + id] || 0;
     bot.memory["mix" + id] = n + 1;
-    if (n % 2 === 0) {
-        var wants = bot.quest.wants(id);
-        var have = 0;
-        for (var i = 0; wants != null && i < wants.length; i++) have += wants[i].have;
-        var key = "dry" + id;
-        if (have !== bot.memory[key + "have"]) { bot.memory[key + "have"] = have; bot.memory[key] = 0; }
-        else {
-            var dry = (bot.memory[key] || 0) + 1;
-            bot.memory[key] = dry;
-            if (dry >= 6 && MULTI[id].length > 1) {
-                bot.memory[key] = 0;
-                bot.memory["cell" + id] = (bot.memory["cell" + id] || 0) + 1;
-            }
-        }
-        mixkill(id);
-    }
+    if (n % 2 === 0) { hunt(id); }
     else { ground(id); }
 }
 
@@ -438,7 +426,7 @@ function act(id) {
     var wants = bot.quest.wants(id);
     if (wants == null) return;
     if (MULTI[id] != null && GROUND[id] != null) { mix(id); return; }
-    if (MULTI[id] != null) { each(id); return; }
+    if (MULTI[id] != null) { hunt(id); return; }
     var spotOpen = false;
     for (var i = 0; i < wants.length; i++) {
         if (wants[i].have >= wants[i].need) continue;
