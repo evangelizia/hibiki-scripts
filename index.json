@@ -308,8 +308,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 23909,
-      "sha256": "16f22f5c6a2e05a6fc645797c6a811317f61c3aa6501d97da2dca5caafca5d34",
+      "size": 23991,
+      "sha256": "33f19f46a6f36a3565428864fd75819ad9c53669f94300a66779419670d1051c",
       "path": "bots/mogloween-story.js",
       "mode": "once",
       "timeout": 300

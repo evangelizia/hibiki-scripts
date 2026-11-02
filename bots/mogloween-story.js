@@ -171,6 +171,7 @@ var SOURCE = {
     104237: { monster: "Nazarene Artist", map: "birgittamogloween", cell: "r2" },
     104241: { monster: "Lycan Guest", map: "birgittamogloween", cell: "r4" },
     104244: { monster: "Vampiric Guest", map: "birgittamogloween", cell: "r5" },
+    104246: { monster: "Nazarene Artist", map: "birgittamogloween", cell: "r2" },
     104247: { monster: "Vampiric Guest", map: "birgittamogloween", cell: "r5" },
     104248: { monster: "Lycan Guest", map: "birgittamogloween", cell: "r4" },
     104249: { monster: "Champion Ensis", map: "birgittamogloween", cell: "r6" },
