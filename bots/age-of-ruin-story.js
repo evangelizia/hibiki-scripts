@@ -319,14 +319,14 @@ var MULTI = {
     10736: [{ monster: "Clematis", map: "forgecitrinitas", cell: "r8" }, { monster: "Luma Lifeform", map: "forgecitrinitas", cell: "r5" }, { monster: "Luma Lifeform", map: "forgecitrinitas", cell: "r7" }, { monster: "Defense Droid", map: "forgecitrinitas", cell: "r6" }],
 };
 
-// Solo bosses with mechanics around the fight. 10704 names the safe side
-// in the zone event; the engine already walks it, and the script steps
-// there too, so the kill resumes from safety every pass. 9348 needs
-// Vigil up when the Voice yells, or Nightmare Slumber wipes the room.
+// Solo bosses with mechanics around the fight. The engine walks the
+// Flame zoneSet dodge to the map markers on its own; the script only
+// holds the cell and fights. 9348 needs Vigil up when the Voice
+// yells, or Nightmare Slumber wipes the room.
 var SPECIAL = {
     9348: { monster: "Voice in the Sea", map: "seavoice", cell: "r2", vigil: true },
     9833: { monster: "Cold Thunder Avatar", map: "coldthunder", cell: "r3" },
-    10704: { monster: "Flame of the Beyond", map: "magnumopus", cell: "r2", dodge: true },
+    10704: { monster: "Flame of the Beyond", map: "magnumopus", cell: "r2" },
 };
 
 // Vigil against the Voice: shop and item from the seavoice listing.
@@ -392,10 +392,8 @@ function source(id, want) {
     if (!bot.pickDrop()) return;
 }
 
-// A leg whose monsters cannot be paired to bags by name. Rotate them, one
-// kill per pass; the quest wants are the only thing that ends the leg.
-// A solo boss at the end of a chain. The Flame names its safe side in
-// the zone event; the step goes there first, then the fight resumes.
+// A solo boss at the end of a chain. The kill holds the cell while the
+// engine walks the Flame safe zones on its own dodge timer.
 function special(id) {
     var sp = SPECIAL[id];
     if (sp == null) { bot.fail("quest " + id + " has no fight in this run"); return; }
@@ -408,11 +406,6 @@ function special(id) {
             bot.use(VIGIL_ITEM);
             bot.followers.use(VIGIL_ITEM);
         }
-    }
-    if (sp.dodge) {
-        var zone = bot.zone();
-        if (zone === "a") { bot.walkTo(614, 402); }
-        else if (zone === "b") { bot.walkTo(318, 402); }
     }
     if (!bot.kill(sp.monster || "*", 1)) return;
     if (!bot.pickDrop()) return;
