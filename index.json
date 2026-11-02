@@ -315,6 +315,19 @@
       "timeout": 30
     },
     {
+      "id": "kings-echo",
+      "name": "King's Echo",
+      "desc": "The King's Echo class chain, from the reps to the class item.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 11296,
+      "sha256": "2292820732859fb607743af6908ed2b27df3717d0d8da7ab17ad88933ab162c7",
+      "path": "bots/kings-echo.js",
+      "mode": "once",
+      "timeout": 0
+    },
+    {
       "id": "mega-wulpurga-medal",
       "name": "Mega Wulpurga Medal",
       "desc": "Vampiric Ancestors in ShadowSlayer War for Wulpurga Medals.",
