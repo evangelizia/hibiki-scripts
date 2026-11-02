@@ -244,7 +244,7 @@ var GROUND = {
     10351: { map: "thelimacity", spots: [14774] },
     10352: { map: "thelimacity", spots: [14775] },
     10359: { map: "mountmaleno", spots: [14805] },
-    10361: { map: "mountmaleno", spots: [14807] },
+    10361: { map: "mountmaleno", spots: [14806,14807] },
     10363: { map: "mountmaleno", spots: [14808,14809] },
     10364: { map: "mountmaleno", spots: [14810] },
     10365: { map: "mountmaleno", spots: [14811] },
