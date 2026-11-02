@@ -371,47 +371,46 @@ function source(id, want) {
 
 // A leg whose monsters cannot be paired to bags by name. Rotate them, one
 // kill per pass; the quest wants are the only thing that ends the leg.
-// A leg whose monsters cannot be paired to bags by name. The kill side
-// sticks to one cell until it proves dry, then tries the next cell or
-// monster on the list. Progress on any want resets the drought count.
-// Two full dry rounds in every cell ends the run instead of hopping
-// forever: the drop is elsewhere, and the log says where it looked.
+// A leg whose monsters cannot be paired to bags by name. Camps one
+// cell and only scores a drought after a full kill plus pickup pass
+// finishes: travel, room moves and fight time are never counted, so
+// six means six dead monsters that paid nothing. Then it tries the
+// next cell. Two full dry rounds in every cell ends the run instead
+// of hopping forever: the drop is elsewhere, and the log says where
+// it looked.
 function hunt(id) {
     var list = MULTI[id];
     if (list == null || list.length === 0) { bot.fail("quest " + id + " has no monsters in this run"); return; }
-    var wants = bot.quest.wants(id);
-    if (wants == null) return;
-    var have = 0;
-    for (var i = 0; i < wants.length; i++) have += wants[i].have;
-    var key = "dry" + id;
-    if (have !== bot.memory[key + "have"]) {
-        bot.memory[key + "have"] = have;
-        bot.memory[key] = 0;
-        bot.memory[key + "cyc"] = 0;
-    }
-    else {
-        var dry = (bot.memory[key] || 0) + 1;
-        bot.memory[key] = dry;
-        if (dry >= 6) {
-            bot.memory[key] = 0;
-            var at = (bot.memory["cell" + id] || 0) + 1;
-            bot.memory["cell" + id] = at;
-            if (at % list.length === 0) {
-                var cyc = (bot.memory[key + "cyc"] || 0) + 1;
-                bot.memory[key + "cyc"] = cyc;
-                if (cyc >= 2) { bot.fail("quest " + id + " paid nothing in every cell"); return; }
-            }
-            else { bot.log("hunt: quest " + id + " dry, trying " + list[at % list.length].cell); }
-        }
-    }
-    var n = bot.memory["each" + id] || 0;
-    bot.memory["each" + id] = n + 1;
     var ci = bot.memory["cell" + id] || 0;
     var from = list[ci % list.length];
     if (!bot.travel(from.map)) return;
     if (!bot.moveToCell(from.cell)) return;
     if (!bot.kill(from.monster, 1)) return;
     if (!bot.pickDrop()) return;
+    var wants = bot.quest.wants(id);
+    if (wants == null) return;
+    var have = 0;
+    for (var i = 0; i < wants.length; i++) have += wants[i].have;
+    var key = "dry" + id;
+    if (bot.memory[key + "have"] == null) { bot.memory[key + "have"] = have; bot.memory[key] = 0; return; }
+    if (have !== bot.memory[key + "have"]) {
+        bot.memory[key + "have"] = have;
+        bot.memory[key] = 0;
+        bot.memory[key + "cyc"] = 0;
+        return;
+    }
+    var dry = (bot.memory[key] || 0) + 1;
+    bot.memory[key] = dry;
+    if (dry < 6) return;
+    bot.memory[key] = 0;
+    var at = (bot.memory["cell" + id] || 0) + 1;
+    bot.memory["cell" + id] = at;
+    if (at % list.length === 0) {
+        var cyc = (bot.memory[key + "cyc"] || 0) + 1;
+        bot.memory[key + "cyc"] = cyc;
+        if (cyc >= 2) { bot.fail("quest " + id + " paid nothing in every cell"); return; }
+    }
+    else { bot.log("hunt: quest " + id + " dry, trying " + list[at % list.length].cell); }
 }
 
 // A leg that needs both kills and map items. Alternate the sticky kill

@@ -9,8 +9,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 35005,
-      "sha256": "3b169e3e1077d0e2fdb37c10258f73876215e58c2811baead457086f6f942ddf",
+      "size": 35018,
+      "sha256": "1de188536911db2a4db2001b68fc67f10e649f4adc04bc1bb79937e3bfdd9d6d",
       "path": "bots/age-of-ruin-story.js",
       "mode": "once",
       "timeout": 300
@@ -334,8 +334,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 30000,
-      "sha256": "00d88506677aad84df4760c273900ceb2d260432b51122e56e23caebcaf2663d",
+      "size": 30013,
+      "sha256": "e7b436abf304b5e4a6fe60a221fc3ae16d0b373b96acfbab455976f653d5a1ff",
       "path": "bots/mogloween-story.js",
       "mode": "once",
       "timeout": 300
