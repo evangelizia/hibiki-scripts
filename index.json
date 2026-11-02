@@ -354,6 +354,19 @@
       "timeout": 180
     },
     {
+      "id": "seavoice-vigil",
+      "name": "Seavoice Vigil",
+      "desc": "Voice in the Sea with Vigil on the slumber cue, party included.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 1406,
+      "sha256": "2758c6fb54915cd5ae4370aefe4062acae4163124a7f2376a0bf601298be67e8",
+      "path": "bots/seavoice-vigil.js",
+      "mode": "loop",
+      "timeout": 30
+    },
+    {
       "id": "shadowbattleon-exp",
       "name": "Shadow Battleon EXP",
       "desc": "Doomed Trolls at Enter, handing in both Shadow Hunt quests.",
