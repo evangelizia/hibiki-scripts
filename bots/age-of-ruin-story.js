@@ -328,11 +328,12 @@ var SPECIAL = {
     10704: { monster: "Flame of the Beyond", map: "magnumopus", cell: "r2", dodge: true },
 };
 
-// Vigil against the Voice: shop 2320, item 12023, equipped to the potion
-// slot then fired as skill 5 on the "You will not resist!" cue, the way
-// CoreAOR.FightVoiceInTheSea does it (buy, equip, UseSkill(5) to the aura).
+// Vigil against the Voice, from the live DUMPER shop dump: shop 2320
+// ("SeaVoice Merge", merge:true), item 78994, maxStack 1000. Equipped to
+// the potion slot then fired as skill 5 on the "You will not resist!" cue,
+// the same shape as CoreAOR.FightVoiceInTheSea (buy, equip, UseSkill(5)).
 var VIGIL_SHOP = 2320;
-var VIGIL_ITEM = 12023;
+var VIGIL_ITEM = 78994;
 var VIGIL_EACH = 5;
 var VIGIL_CUE = "you will not resist";
 

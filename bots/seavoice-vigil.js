@@ -5,11 +5,12 @@
 
 // God of the Depths / Voice in the Sea wipes on Nightmare Slumber unless the
 // Vigil buff is up. The boss yells "You will not resist!" first, so the buff
-// is timed to the cue, not spammed. Shop 2320, item 12023, equipped to the
-// potion slot then fired as skill 5 until the Vigil aura lands - the same
-// shape as CoreAOR.FightVoiceInTheSea (buy, equip, UseSkill(5)).
+// is timed to the cue, not spammed. Shop 2320 ("SeaVoice Merge"), item 78994,
+// equipped to the potion slot then fired as skill 5 until the Vigil aura
+// lands - the same shape as CoreAOR.FightVoiceInTheSea (buy, equip,
+// UseSkill(5)).
 var VIGIL_SHOP = 2320;
-var VIGIL_ITEM = 12023;
+var VIGIL_ITEM = 78994;
 // How many Vigil each follower must hold before the fight starts.
 var VIGIL_EACH = 5;
 
