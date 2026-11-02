@@ -438,12 +438,14 @@ if (sword.rank < 10) {
     return;
 }
 
-// Shadowfall Rise, slot 283. The first unfinished quest runs; a definition
-// that has not loaded yet counts as unfinished so the pass keeps moving.
+// Shadowfall Rise, slot 283. The first unfinished quest runs. A definition
+// that has not loaded yet answers null, and the pass waits for it: working
+// quest 1 on every rejoin would re-accept a finished quest and fail the run.
 var qi;
 for (qi = 0; qi < SHADOW.length; qi++) {
     var sd = bot.quest.done(SHADOW[qi]);
-    if (sd == null || !sd) break;
+    if (sd == null) return;
+    if (!sd) break;
 }
 if (qi < SHADOW.length) {
     phase("shadowfall " + SHADOW[qi]);
@@ -451,11 +453,12 @@ if (qi < SHADOW.length) {
     return;
 }
 
-// Lynaria, slot 585, same shape.
+// Lynaria, slot 585, same shape: null waits, false runs, true skips.
 var li;
 for (li = 0; li < LYN.length; li++) {
     var ld = bot.quest.done(LYN[li]);
-    if (ld == null || !ld) break;
+    if (ld == null) return;
+    if (!ld) break;
 }
 if (li < LYN.length) {
     phase("lynaria " + LYN[li]);

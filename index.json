@@ -399,8 +399,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 21829,
-      "sha256": "61d2a2572a6eed95b079839d0b7e27c48a8ddb492880e3b659093771c21939a4",
+      "size": 21973,
+      "sha256": "d621ef9670018c800ec51ede09b92d5b6699b6e14a4463f64c18f4463433ecdd",
       "path": "bots/shadowfall-kingsecho.js",
       "mode": "once",
       "timeout": 0
