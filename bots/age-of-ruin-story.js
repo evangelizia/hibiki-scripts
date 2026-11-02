@@ -328,11 +328,13 @@ var SPECIAL = {
     10704: { monster: "Flame of the Beyond", map: "magnumopus", cell: "r2", dodge: true },
 };
 
-// Vigil against the Voice: shop and item from the seavoice listing.
+// Vigil against the Voice: shop 2320, item 12023, equipped to the potion
+// slot then fired as skill 5 on the "You will not resist!" cue, the way
+// CoreAOR.FightVoiceInTheSea does it (buy, equip, UseSkill(5) to the aura).
 var VIGIL_SHOP = 2320;
-var VIGIL_ITEM = 78994;
+var VIGIL_ITEM = 12023;
 var VIGIL_EACH = 5;
-var VIGIL_CUE = "you cannot resist";
+var VIGIL_CUE = "you will not resist";
 
 // Member-only variant of the Silica Spring leg. A run that cannot start
 // it skips ahead instead of failing.
@@ -414,6 +416,10 @@ function special(id) {
     if (sp.vigil) {
         if (!bot.buy(VIGIL_SHOP, VIGIL_ITEM)) return;
         if (!bot.followers.buy(VIGIL_SHOP, VIGIL_ITEM, VIGIL_EACH)) return;
+        // Seat it in the potion slot before the fight; use() casts slot 5
+        // and refuses when something else sits there.
+        if (!bot.equip(VIGIL_ITEM)) return;
+        if (!bot.followers.equip(VIGIL_ITEM)) return;
         if (bot.cue(VIGIL_CUE)) {
             bot.use(VIGIL_ITEM);
             bot.followers.use(VIGIL_ITEM);
