@@ -332,6 +332,7 @@ function ground(id) {
         counts += wants[i].have + "/" + wants[i].need + " ";
         if (wants[i].have < wants[i].need) open = true;
     }
+    counts += "e" + (bot.memory["each" + id] || 0);
     if (bot.memory[key + "have"] != counts) { bot.memory[key + "have"] = counts; bot.memory[key] = 0; }
     if (!open) return true;
     var sweeps = (bot.memory[key] || 0) + 1;
@@ -374,12 +375,23 @@ function each(id) {
     var list = MULTI[id];
     if (list == null || list.length === 0) { bot.fail("quest " + id + " has no monsters in this run"); return; }
     var n = bot.memory["each" + id] || 0;
+    bot.memory["each" + id] = n + 1;
     var from = list[n % list.length];
     if (!bot.travel(from.map)) return;
     if (!bot.moveToCell(from.cell)) return;
     if (!bot.kill(from.monster, 1)) return;
     if (!bot.pickDrop()) return;
-    bot.memory["each" + id] = n + 1;
+}
+
+// A leg that needs both kills and map items, but the kills cannot be
+// paired to bags by name. Alternate passes: the kill rotation fills
+// bags, the spot rotation fills the map, and either side finishing
+// is what ends the leg.
+function mix(id) {
+    var n = bot.memory["mix" + id] || 0;
+    bot.memory["mix" + id] = n + 1;
+    if (n % 2 === 0) { each(id); }
+    else { ground(id); }
 }
 
 function act(id) {
@@ -397,6 +409,7 @@ function act(id) {
     }
     var wants = bot.quest.wants(id);
     if (wants == null) return;
+    if (MULTI[id] != null && GROUND[id] != null) { mix(id); return; }
     if (MULTI[id] != null) { each(id); return; }
     var spotOpen = false;
     for (var i = 0; i < wants.length; i++) {
