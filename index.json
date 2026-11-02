@@ -304,12 +304,12 @@
     {
       "id": "mega-wulpurga-medal",
       "name": "Mega Wulpurga Medal",
-      "desc": "Vampiric Ancestors in ShadowSlayer War for Mega Wulpurga Medals.",
+      "desc": "Vampiric Ancestors in ShadowSlayer War for Wulpurga Medals.",
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 825,
-      "sha256": "31e7fa0639ea7a71b7a6f3c6bce701a4945415ef3fc1d344711992139ac5f266",
+      "size": 1048,
+      "sha256": "a4f50be2cac894174ec40b3e26108aeeebdb8aabb1523063ab061d6f71050655",
       "path": "bots/mega-wulpurga-medal.js",
       "mode": "loop",
       "timeout": 30
