@@ -9,8 +9,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 31756,
-      "sha256": "0a9cdbc2c43cc2a13950048c034a98de8dea1b1e194b37163f8273a507ec0c76",
+      "size": 31827,
+      "sha256": "25eba9fdd0d4c1a7ffa2afec3f1fcca7ec0a80f84afc3457f1fbd5511890d61b",
       "path": "bots/age-of-ruin-story.js",
       "mode": "once",
       "timeout": 300
@@ -360,8 +360,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 1473,
-      "sha256": "5e9f457efaed04ff4c0b213e7819b54b6388808d5d69f06c8c9de73777da4693",
+      "size": 1495,
+      "sha256": "6072b2f0a35ed4cbbaffbcc49755b42d8ed149cbaaacced7293777ec635f9478",
       "path": "bots/seavoice-vigil.js",
       "mode": "loop",
       "timeout": 30
