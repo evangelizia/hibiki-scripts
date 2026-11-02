@@ -320,12 +320,19 @@ var MULTI = {
 
 // Solo bosses with mechanics around the fight. 10704 names the safe side
 // in the zone event; the engine already walks it, and the script steps
-// there too, so the kill resumes from safety every pass.
+// there too, so the kill resumes from safety every pass. 9348 needs
+// Vigil up when the Voice yells, or Nightmare Slumber wipes the room.
 var SPECIAL = {
-    9348: { monster: "Voice in the Sea", map: "seavoice", cell: "r2" },
+    9348: { monster: "Voice in the Sea", map: "seavoice", cell: "r2", vigil: true },
     9833: { monster: "Cold Thunder Avatar", map: "coldthunder", cell: "r3" },
     10704: { monster: "Flame of the Beyond", map: "magnumopus", cell: "r2", dodge: true },
 };
+
+// Vigil against the Voice: shop and item from the seavoice listing.
+var VIGIL_SHOP = 2320;
+var VIGIL_ITEM = 78994;
+var VIGIL_EACH = 5;
+var VIGIL_CUE = "you cannot resist";
 
 // Member-only variant of the Silica Spring leg. A run that cannot start
 // it skips ahead instead of failing.
@@ -404,6 +411,14 @@ function special(id) {
     if (sp == null) { bot.fail("quest " + id + " has no fight in this run"); return; }
     if (!bot.travel(sp.map)) return;
     if (!bot.moveToCell(sp.cell)) return;
+    if (sp.vigil) {
+        if (!bot.buy(VIGIL_SHOP, VIGIL_ITEM)) return;
+        if (!bot.followers.buy(VIGIL_SHOP, VIGIL_ITEM, VIGIL_EACH)) return;
+        if (bot.cue(VIGIL_CUE)) {
+            bot.use(VIGIL_ITEM);
+            bot.followers.use(VIGIL_ITEM);
+        }
+    }
     if (sp.dodge) {
         var zone = bot.zone();
         if (zone === "a") { bot.walkTo(614, 402); }
