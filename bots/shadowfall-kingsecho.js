@@ -269,7 +269,7 @@ function source(itemId, want) {
         var spot = MAPITEM[itemId];
         if (!bot.checkpoint(spot[0])) return false;
         if (!bot.travel(spot[0])) return false;
-        bot.mapItem(spot[1], 1, itemId);
+        bot.mapItem(spot[1], want.need, itemId);
         return false;
     }
     bot.fail("mega: no source for item " + itemId);
