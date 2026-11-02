@@ -9,8 +9,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 34649,
-      "sha256": "9afd6ec1b306eebe18cbd859e180ba9078eda9c2e07950d07a6b872f401fc7ea",
+      "size": 34685,
+      "sha256": "96662b23e120f3e7356d21dc525759ed4ff5c7d7103095663153c18abf5c862e",
       "path": "bots/age-of-ruin-story.js",
       "mode": "once",
       "timeout": 300

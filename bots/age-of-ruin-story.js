@@ -324,9 +324,9 @@ var MULTI = {
 // holds the cell and fights. 9348 needs Vigil up when the Voice
 // yells, or Nightmare Slumber wipes the room.
 var SPECIAL = {
-    9348: { monster: "Voice in the Sea", map: "seavoice", cell: "r2", vigil: true },
+    9348: { monster: "Voice in the Sea", map: "seavoice", cell: "r2", pad: "Left", vigil: true },
     9833: { monster: "Cold Thunder Avatar", map: "coldthunder", cell: "r3" },
-    10704: { monster: "Flame of the Beyond", map: "magnumopus", cell: "r2" },
+    10704: { monster: "Flame of the Beyond", map: "magnumopus", cell: "r2", pad: "Bottom" },
 };
 
 // Vigil against the Voice: shop and item from the seavoice listing.
@@ -398,7 +398,7 @@ function special(id) {
     var sp = SPECIAL[id];
     if (sp == null) { bot.fail("quest " + id + " has no fight in this run"); return; }
     if (!bot.travel(sp.map)) return;
-    if (!bot.moveToCell(sp.cell)) return;
+    if (!bot.moveToCell(sp.cell, sp.pad)) return;
     if (sp.vigil) {
         if (!bot.buy(VIGIL_SHOP, VIGIL_ITEM)) return;
         if (!bot.followers.buy(VIGIL_SHOP, VIGIL_ITEM, VIGIL_EACH)) return;
