@@ -393,6 +393,19 @@
       "timeout": 10
     },
     {
+      "id": "shadowfall-kingsecho",
+      "name": "Shadowfall to King's Echo",
+      "desc": "Shadowfall Rise, the Lynaria saga, the armor merges, then King's Echo.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 21821,
+      "sha256": "25d1821a4146668b1d4544ada7d4600b673c30024280247e256a03c910aa2d1f",
+      "path": "bots/shadowfall-kingsecho.js",
+      "mode": "once",
+      "timeout": 0
+    },
+    {
       "id": "somnia-rep",
       "name": "Somnia REP",
       "desc": "Somnia reputation to rank 10, three repeatable quests.",
