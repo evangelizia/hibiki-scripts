@@ -431,13 +431,41 @@ function special(id) {
 }
 
 // A leg that needs both kills and map items, but the kills cannot be
-// paired to bags by name. Alternate passes: the kill rotation fills
-// bags, the spot rotation fills the map, and either side finishing
-// is what ends the leg.
+// paired to bags by name. Alternate kill and spot passes. The kill side
+// sticks to one cell until it proves dry, then tries the next cell that
+// holds the name; the spot side fills the map in between.
+function mixkill(id) {
+    var list = MULTI[id];
+    if (list == null || list.length === 0) { bot.fail("quest " + id + " has no monsters in this run"); return; }
+    var n = bot.memory["each" + id] || 0;
+    bot.memory["each" + id] = n + 1;
+    var ci = bot.memory["cell" + id] || 0;
+    var from = list[ci % list.length];
+    if (!bot.travel(from.map)) return;
+    if (!bot.moveToCell(from.cell)) return;
+    if (!bot.kill(from.monster, 1)) return;
+    if (!bot.pickDrop()) return;
+}
+
 function mix(id) {
     var n = bot.memory["mix" + id] || 0;
     bot.memory["mix" + id] = n + 1;
-    if (n % 2 === 0) { each(id); }
+    if (n % 2 === 0) {
+        var wants = bot.quest.wants(id);
+        var have = 0;
+        for (var i = 0; wants != null && i < wants.length; i++) have += wants[i].have;
+        var key = "dry" + id;
+        if (have !== bot.memory[key + "have"]) { bot.memory[key + "have"] = have; bot.memory[key] = 0; }
+        else {
+            var dry = (bot.memory[key] || 0) + 1;
+            bot.memory[key] = dry;
+            if (dry >= 6 && MULTI[id].length > 1) {
+                bot.memory[key] = 0;
+                bot.memory["cell" + id] = (bot.memory["cell" + id] || 0) + 1;
+            }
+        }
+        mixkill(id);
+    }
     else { ground(id); }
 }
 
