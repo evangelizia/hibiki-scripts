@@ -141,6 +141,7 @@ var SOURCE = {
     87166: { monster: "Glacial Crystal", map: "castlegaheris", cell: "r6" },
     87167: { monster: "Elemental Hybrid", map: "castlegaheris", cell: "r7" },
     87168: { monster: "Thundersnow Storm", map: "castlegaheris", cell: "r10" },
+    94890: { monster: "Maleno Match", map: "thelimacity", cell: "r9" },
     94900: { monster: "Soul Raven", map: "mountmaleno", cell: "r2" },
     94910: { monster: "Maleno Elemental", map: "mountmaleno", cell: "r6" },
     94912: { monster: "Draconian Bandit", map: "mountmaleno", cell: "r7" },
@@ -328,14 +329,11 @@ var SPECIAL = {
     10704: { monster: "Flame of the Beyond", map: "magnumopus", cell: "r2", dodge: true },
 };
 
-// Vigil against the Voice, from the live DUMPER shop dump: shop 2320
-// ("SeaVoice Merge", merge:true), item 78994, maxStack 1000. Equipped to
-// the potion slot then fired as skill 5 on the "You will not resist!" cue,
-// the same shape as CoreAOR.FightVoiceInTheSea (buy, equip, UseSkill(5)).
+// Vigil against the Voice: shop and item from the seavoice listing.
 var VIGIL_SHOP = 2320;
 var VIGIL_ITEM = 78994;
 var VIGIL_EACH = 5;
-var VIGIL_CUE = "you will not resist";
+var VIGIL_CUE = "you cannot resist";
 
 // Member-only variant of the Silica Spring leg. A run that cannot start
 // it skips ahead instead of failing.
@@ -417,10 +415,6 @@ function special(id) {
     if (sp.vigil) {
         if (!bot.buy(VIGIL_SHOP, VIGIL_ITEM)) return;
         if (!bot.followers.buy(VIGIL_SHOP, VIGIL_ITEM, VIGIL_EACH)) return;
-        // Seat it in the potion slot before the fight; use() casts slot 5
-        // and refuses when something else sits there.
-        if (!bot.equip(VIGIL_ITEM)) return;
-        if (!bot.followers.equip(VIGIL_ITEM)) return;
         if (bot.cue(VIGIL_CUE)) {
             bot.use(VIGIL_ITEM);
             bot.followers.use(VIGIL_ITEM);
