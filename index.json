@@ -304,12 +304,12 @@
     {
       "id": "mogloween-story",
       "name": "Mogloween Story",
-      "desc": "The complete Mogloween saga, Candy Craze to Daughter of the Sun.",
+      "desc": "The complete Mogloween saga, Candy Craze to the Crossroads.",
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 23991,
-      "sha256": "33f19f46a6f36a3565428864fd75819ad9c53669f94300a66779419670d1051c",
+      "size": 25097,
+      "sha256": "d6007fe4ba5297c4bc6e8c9419545c375391755647fe8b89b5f3ac7a4bbaefe9",
       "path": "bots/mogloween-story.js",
       "mode": "once",
       "timeout": 300

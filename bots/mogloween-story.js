@@ -1,12 +1,12 @@
 /// name: Mogloween Story
-/// desc: The complete Mogloween saga, Candy Craze to Daughter of the Sun.
+/// desc: The complete Mogloween saga, Candy Craze to the Crossroads.
 /// once: true
 /// timeout: 300
 
 // The Mogloween chain lives on one quest slot per era, and most legs are
 // repeatable, so a finished leg stays done and an unfinished one is simply
 // walked again. Progress is the tracker plus the slot, never memory alone.
-var ORDER = [95,96,93,94,97,98,99,391,392,393,394,395,396,397,398,399,400,401,871,872,873,874,875,876,877,878,1355,1356,1357,1358,1359,1360,1361,1362,1363,2454,2455,2456,2457,2458,2459,2460,2461,2462,2463,2464,2465,2466,3833,3834,3835,3836,3837,3838,3839,3840,3841,3842,3843,3844,3845,4570,4571,5418,5419,5420,5421,5422,5423,5424,5425,5426,5427,6531,6532,6533,6534,6535,6536,6537,6538,6568,6569,6570,6571,6572,6573,6574,6575,6576,6577,6578,6579,7139,7140,7141,7142,7143,7144,7145,7146,7147,7148,7149,7150,7151,7152,7153,7154,7167,7168,7169,7170,7171,7172,7173,7174,7175,7176,7177,7178,7179,8363,8364,8365,8366,8367,8368,8369,8370,8371,8372,8373,8374,8926,8927,8928,8929,8930,8931,8932,8933,8934,8935,9445,9446,9447,9448,9449,9450,9451,9452,9453,9454,10444,10445,10446,10447,10448,10449,10450,10451,10452,10453,10465,10466,10467,10469,10470,10471,10472,10473,10474,10475,10476,10477,10478,10896,10897,10898,10899,10900,10901,10902,10903,10904,10905,10908,10909,10910,10911,10912,10913,10914,10915,10916];
+var ORDER = [95,96,93,94,97,98,99,391,392,393,394,395,396,397,398,399,400,401,871,872,873,874,875,876,877,878,1355,1356,1357,1358,1359,1360,1361,1362,1363,2454,2455,2456,2457,2458,2459,2460,2461,2462,2463,2464,2465,2466,3833,3834,3835,3836,3837,3838,3839,3840,3841,3842,3843,3844,3845,4570,4571,5418,5419,5420,5421,5422,5423,5424,5425,5426,5427,6531,6532,6533,6534,6535,6536,6537,6538,6568,6569,6570,6571,6572,6573,6574,6575,6576,6577,6578,6579,7139,7140,7141,7142,7143,7144,7145,7146,7147,7148,7149,7150,7151,7152,7153,7154,7167,7168,7169,7170,7171,7172,7173,7174,7175,7176,7177,7178,7179,8363,8364,8365,8366,8367,8368,8369,8370,8371,8372,8373,8374,8926,8927,8928,8929,8930,8931,8932,8933,8934,8935,9445,9446,9447,9448,9449,9450,9451,9452,9453,9454,10444,10445,10446,10447,10448,10449,10450,10451,10452,10453,10465,10466,10467,10469,10470,10471,10472,10473,10474,10475,10476,10477,10478,10896,10897,10898,10899,10900,10901,10902,10903,10904,10905,10908,10909,10910,10911,10912,10913,10914,10915,10916,10921,10922,10923,10924,10925,10926,10927,10928,10929,10930];
 
 // Bag id to the monster that pays it. Cells come from a live room dump;
 // the pad is left off on purpose, the cell alone is the arrival.
@@ -185,6 +185,16 @@ var SOURCE = {
     104524: { monster: "Forest Cultist", map: "shadowslayerwar", cell: "r11" },
     104525: { monster: "Awakened Hunter", map: "shadowslayerwar", cell: "r12" },
     104526: { monster: "ShadowSlayer Z", map: "shadowslayerwar", cell: "r13" },
+    104716: { monster: "Druid Revenant", map: "walpurgisnacht", cell: "r2" },
+    104717: { monster: "Forest Cultist", map: "walpurgisnacht", cell: "r3" },
+    104719: { monster: "Druid Revenant", map: "walpurgisnacht", cell: "r2" },
+    104720: { monster: "Forest Cultist", map: "walpurgisnacht", cell: "r3" },
+    104722: { monster: "Awakened Hunter", map: "walpurgisnacht", cell: "r5" },
+    104725: { monster: "ShadowSlayer G", map: "walpurgisnacht", cell: "r6" },
+    104727: { monster: "Bloodlust", map: "walpurgisnacht", cell: "r11" },
+    104728: { monster: "Beastly Hunger", map: "walpurgisnacht", cell: "r12" },
+    104729: { monster: "Moon's Firstborn", map: "walpurgisnacht", cell: "r10" },
+    104730: { monster: "The Gentleman", map: "walpurgisnacht", cell: "r13" },
 };
 
 // Quests whose items sit in the map rather than on a monster. One request
@@ -270,6 +280,11 @@ var GROUND = {
     10899: { map: "birgittamogloween", spots: [16283,16284,16285] },
     10901: { map: "birgittamogloween", spots: [16286,16287] },
     10903: { map: "birgittamogloween", spots: [16288] },
+    10921: { map: "walpurgisnacht", spots: [16340] },
+    10922: { map: "walpurgisnacht", spots: [16341] },
+    10923: { map: "walpurgisnacht", spots: [16342] },
+    10924: { map: "walpurgisnacht", spots: [16343] },
+    10926: { map: "walpurgisnacht", spots: [16344] },
 };
 
 // Items no monster drops: the reward of another quest. 10465 is the case,
