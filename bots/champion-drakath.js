@@ -60,7 +60,9 @@ function taunt() {
     bot.memory.hp = boss.hp;
 
     var i;
-    for (i = 0; i < NUKES.length; i++) {
+    // Nearest mark first: crossing two at once means both nukes are already
+    // going off, and the lower one is the one the press still covers.
+    for (i = NUKES.length - 1; i >= 0; i--) {
         if (fired[i] || boss.hp > NUKES[i] + LEAD) continue;
         if (boss.aura("focus") > 0) {
             fired[i] = true;
@@ -89,11 +91,13 @@ if (!bot.moveToCell(where.cell, where.pad || "Left")) return;
 
 if (!bot.quest.active(QUEST) && !bot.quest.accept(QUEST)) return;
 
-// A taunter without a scroll is a wipe with extra steps: say so now.
+// One scroll per mark: a short stack wipes at the first mark it cannot
+// answer, so this names the count now instead of a wipe later.
 var scrolls = bot.item(SCROLL);
 if (scrolls == null) return;
-if (scrolls < 1) {
-    bot.fail("no Scroll of Enrage to taunt with");
+if (scrolls < NUKES.length) {
+    bot.fail("needs " + NUKES.length + " Scroll of Enrage for the marks, "
+        + scrolls + " in the bag");
     return;
 }
 

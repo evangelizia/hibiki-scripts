@@ -100,8 +100,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 3907,
-      "sha256": "8b5d7d79e69b16b994f8d349a8590271002c3ae0e1c2c33c0dcbf78cb73c540f",
+      "size": 4197,
+      "sha256": "0238d8a8e47158c0bac68219295c7eb41f1ac4c9f568f62b59cee08703f20cce",
       "path": "bots/champion-drakath.js",
       "mode": "once",
       "timeout": 30
