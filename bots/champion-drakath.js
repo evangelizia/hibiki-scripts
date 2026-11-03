@@ -22,9 +22,8 @@ var NUKES = [18000000, 16000000, 14000000, 12000000, 8000000, 6000000, 4000000];
 var LEAD = 250000;
 
 // Three potions, each as equip-then-use on leader and party, then the scroll
-// onto the leader. One action per pass, so the engine pace spaces them: a
-// follower's use has to come after its own equip window, or the session
-// drops it.
+// onto the leader. One action per pass, so the engine pace spaces them; a
+// follower's use that lands early is held by its session, not dropped.
 var BUFFS = [FATE, ELIXIR, HONOR];
 var STEPS = BUFFS.length * 4 + 1;
 
@@ -79,6 +78,15 @@ function taunt() {
     }
     bot.memory.fired = fired;
     bot.memory.pressed = pressed;
+}
+
+// A weekly already turned in this week cannot be accepted again, and the
+// accept step would just wait for the timeout. End now, with the reason.
+var done = bot.quest.done(QUEST);
+if (done == null) return;
+if (done && !bot.quest.active(QUEST)) {
+    bot.finish("quest " + QUEST + " is already turned in this week");
+    return;
 }
 
 if (!bot.travel(MAP)) return;
