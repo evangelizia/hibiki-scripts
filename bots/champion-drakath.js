@@ -12,9 +12,14 @@ var BOSS = "Champion Drakath";
 var MAP = "championdrakath";
 var QUEST = 8300;
 
-var FATE = 11683;          // Fate Tonic
-var ELIXIR = 11741;        // Potent Battle Elixir; 11770 is Divine for healers
-var HONOR = 11736;         // Potent Honor Potion
+// Potions as id and the name LOG should use, in the order they are drunk.
+// The third slot is the elixir line: Potent Battle Elixir for damage; the
+// Divine Elixir (11770) is the healer's swap and does not belong here.
+var BUFFS = [
+    [11683, "Fate Tonic"],
+    [11741, "Potent Battle Elixir"],
+    [11736, "Potent Honor Potion"]
+];
 var SCROLL = 12917;        // Scroll of Enrage
 
 var NUKES = [18000000, 16000000, 14000000, 12000000, 8000000, 6000000, 4000000];
@@ -24,7 +29,6 @@ var LEAD = 250000;
 // Three potions, each as equip-then-use on leader and party, then the scroll
 // onto the leader. One action per pass, so the engine pace spaces them; a
 // follower's use that lands early is held by its session, not dropped.
-var BUFFS = [FATE, ELIXIR, HONOR];
 var STEPS = BUFFS.length * 4 + 1;
 
 function buff() {
@@ -32,7 +36,7 @@ function buff() {
     if (step >= STEPS) return true;
 
     var phase = step % 4;
-    var item = step < BUFFS.length * 4 ? BUFFS[Math.floor(step / 4)] : SCROLL;
+    var item = step < BUFFS.length * 4 ? BUFFS[Math.floor(step / 4)][0] : SCROLL;
     var done;
     if (phase == 0) done = bot.equip(item);
     else if (phase == 1) done = bot.followers.equip(item);
@@ -107,6 +111,20 @@ if (scrolls < NUKES.length) {
     bot.fail("needs " + NUKES.length + " Scroll of Enrage for the marks, "
         + scrolls + " in the bag");
     return;
+}
+
+// Every follower needs one of each; a bag that never reported holds the run,
+// and an empty bag would drink nothing and buff nobody.
+if (bot.followers.count > 0) {
+    var i;
+    for (i = 0; i < BUFFS.length; i++) {
+        var have = bot.followers.item(BUFFS[i][0]);
+        if (have == null) return;
+        if (have < 1) {
+            bot.fail("a follower has no " + BUFFS[i][1]);
+            return;
+        }
+    }
 }
 
 if (!buff()) return;
