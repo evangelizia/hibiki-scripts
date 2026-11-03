@@ -301,8 +301,8 @@
         "army"
       ],
       "version": "1",
-      "size": 7804,
-      "sha256": "c4d6124c74b744c3fa1e0eeccf4afa355a391e30236892c8b27af6cb52f9d551",
+      "size": 8686,
+      "sha256": "f9a7176caadd9154040b8a5131a29507474f6ae7bd54e3dae2b418f00b2e9c03",
       "path": "bots/consumable-stock.js",
       "mode": "loop",
       "timeout": 25

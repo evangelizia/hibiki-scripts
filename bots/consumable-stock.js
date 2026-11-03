@@ -25,13 +25,15 @@ var SPELL = "spellcraft";
 var SHOP = 2036;        // Gold Vouchers, and the two potent potions
 var RUNES = 395;        // Dragon Runestones, one 100k voucher each
 var REAGENTS = 397;     // Arashtite Ore and Dried Slime, one runestone a pack
-var INK_SHOP = 622;     // Zealous Ink
+var INK_SHOP = 622;     // Zealous Ink, one Arcane Quill for five
+var SPELL_SHOP = 693;   // Arcane Quills and the 100k voucher that buys one
 
 var VOUCHER_100K = 62749;
 var VOUCHER_500K = 61043;
 var STONE = 7132;
 var ORE = 11473;
 var SLIME = 11474;
+var QUILL = 17391;
 var INK = 13286;
 var SCROLL_QUEST = 2330;
 
@@ -50,14 +52,15 @@ var HONOR_BUY = 5;              // five a purchase, one 500k voucher, Good rank 
 var BATTLE_BUY = 8;             // eight a purchase, four 500k vouchers
 var BATTLE_VOUCHERS = 4;
 var VOUCHER_GOLD = 500000;
+var QUILL_GOLD = 100000;        // one Arcane Quill, which buys five ink
 
 // A shop refuses a send past the engine's own limit of eight, so a chunk stays
 // under it: one slow answer inside a full chunk would end the run.
 var CHUNK = 6;
 
 /**
- * One shop step, stepped in chunks of eight. A shop answers a handful of sends
- * before it refuses one, so the ask climbs eight items at a time and the chunk
+ * One shop step, stepped in chunks. A shop answers a handful of sends before
+ * it refuses one, so the ask climbs `CHUNK` items at a time and the chunk
  * already reached is remembered across passes.
  */
 function buyTo(shop, item, want) {
@@ -84,19 +87,24 @@ function have(id) {
 }
 
 /**
- * A faction this character never earned is not reported at all, and waiting
- * for it would hang the run. Give the client a few passes, then say what is
- * missing instead of letting a buy refuse with a bare item id.
+ * Rep is not something one run earns, so a known shortfall ends the run at
+ * once instead of spinning against a shop that will never answer. An unknown
+ * faction is given a few passes to arrive from the client first, because the
+ * snapshot fills behind the bot.
  */
 function repAtLeast(name, want) {
     var rep = bot.rep(name);
-    if (rep != null) return rep.rep >= want;
-    var key = "rep_" + name;
-    var waited = (bot.memory[key] || 0) + 1;
-    bot.memory[key] = waited;
-    if (waited > 20) {
-        bot.fail(name + " is not on this character; needs " + want + " rep");
+    if (rep == null) {
+        var key = "rep_" + name;
+        var waited = (bot.memory[key] || 0) + 1;
+        bot.memory[key] = waited;
+        if (waited > 20) {
+            bot.fail(name + " is not on this character; needs " + want + " rep");
+        }
+        return false;
     }
+    if (rep.rep >= want) return true;
+    bot.fail(name + " rep " + rep.rep + " is short of the " + want + " this shop wants");
     return false;
 }
 
@@ -118,7 +126,8 @@ if ((bot.memory.leg || "academy") == "academy") {
         + Math.ceil(battleShort / BATTLE_BUY) * BATTLE_VOUCHERS;
     var bill = Math.ceil(honorShort / HONOR_BUY) * VOUCHER_GOLD
         + Math.ceil(battleShort / BATTLE_BUY) * BATTLE_VOUCHERS * VOUCHER_GOLD
-        + stones * 100000;
+        + stones * 100000
+        + (have(SCROLL) < SCROLL_WANT ? QUILL_GOLD : 0);
 
     if (honorShort > 0 && !repAtLeast("Good", 302500)) return;
     // The army spends its own purses, so this is the leader's share only. It
@@ -190,7 +199,17 @@ if (bot.memory.leg == "scroll") {
     if (have(SCROLL) < SCROLL_WANT) {
         if (!bot.travel(SPELL)) return;
         if (!repAtLeast("SpellCrafting", 22500)) return;
-        if (!buyTo(INK_SHOP, INK, 1)) return;
+
+        // The ink is not sold for gold: one Arcane Quill buys five, and the
+        // quill is a 100k voucher. Five ink is two hundred scrolls, so a
+        // stock of twenty costs the one quill and nothing more.
+        if (have(INK) < 1) {
+            if (have(QUILL) < 1) {
+                if (!buyTo(SPELL_SHOP, VOUCHER_100K, 1)) return;
+                if (!buyTo(SPELL_SHOP, QUILL, 1)) return;
+            }
+            if (!buyTo(INK_SHOP, INK, 1)) return;
+        }
 
         if (!bot.quest.active(SCROLL_QUEST)
             && !bot.quest.accept(SCROLL_QUEST)) return;
