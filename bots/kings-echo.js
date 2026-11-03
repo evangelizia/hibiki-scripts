@@ -26,8 +26,9 @@ var SWORD = "Swordhaven";
 var SWORD_RANK = 10;
 var SWORDS = [3065, 3066, 3067, 3070, 3085, 3086, 3087];
 
-// The Queen of Monsters only shows once her update quest is written.
-var QUEEN_UPDATE = 8361;
+// The Queen of Monsters quest was retired, so it cannot be accepted. Her slot
+// is written through the client's own update quest request instead, and the
+// value is waited on below.
 var QUEEN_SLOT = 426;
 var QUEEN_VALUE = 33;
 
@@ -41,9 +42,8 @@ var SWORD_VALUE = 28;
 var CHAIN_SLOT = 620;
 
 // The Path of the King is only offered in the portal; the rest of the chain
-// is accepted in Termina Temple. The Queen update is accepted in her map.
+// is accepted in Termina Temple.
 var ACCEPT_MAP = {};
-ACCEPT_MAP[QUEEN_UPDATE] = "queenbattle";
 ACCEPT_MAP[CROWN_Q] = "terminatemple";
 ACCEPT_MAP[SWORD_Q] = "portal";
 ACCEPT_MAP[ARMOR_Q] = "terminatemple";
@@ -278,7 +278,13 @@ var qv = bot.quest.value(QUEEN_SLOT);
 if (qv == null) return;
 if (qv < QUEEN_VALUE) {
     phase("the queen of monsters");
-    quest(QUEEN_UPDATE);
+    var queenTries = (bot.memory.queenTries || 0) + 1;
+    bot.memory.queenTries = queenTries;
+    if (queenTries > 8) {
+        bot.fail("kings-echo: quest slot " + QUEEN_SLOT + " will not take " + QUEEN_VALUE);
+        return;
+    }
+    bot.quest.set(QUEEN_SLOT, QUEEN_VALUE);
     return;
 }
 

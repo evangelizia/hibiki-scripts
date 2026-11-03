@@ -28,7 +28,6 @@ var KING_Q = 10439;
 var SWORD_SLOT = 131;
 var SWORD_VALUE = 28;
 var CHAIN_SLOT = 620;
-var QUEEN_UPDATE = 8361;
 var QUEEN_SLOT = 426;
 var QUEEN_VALUE = 33;
 
@@ -51,7 +50,6 @@ var ACCEPT_MAP = {
     10256: "bocklinsanctum", 10257: "bocklinsanctum", 10258: "bocklinsanctum", 10259: "bocklinsanctum",
     10260: "bocklinsanctum", 10261: "bocklinsanctum", 10262: "bocklinsanctum", 10263: "bocklinsanctum",
     10264: "bocklinsanctum", 10265: "bocklinsanctum", 10266: "bocklinsanctum", 10267: "bocklinsanctum",
-    8361: "queenbattle",
     10440: "terminatemple", 10442: "portal", 10441: "terminatemple",
     10438: "terminatemple", 10439: "terminatemple"
 };
@@ -526,11 +524,20 @@ if (mace < 1) {
     if (!bot.buy(2631, MACE, 1)) return;
 }
 
+// The Queen of Monsters quest was retired, so it cannot be accepted or handed
+// in. Skua writes her slot directly and the client's update request does the
+// same thing, so the slot is set here and the value waited on.
 var qv = bot.quest.value(QUEEN_SLOT);
 if (qv == null) return;
 if (qv < QUEEN_VALUE) {
     phase("the queen of monsters");
-    quest(QUEEN_UPDATE);
+    var queenTries = (bot.memory.queenTries || 0) + 1;
+    bot.memory.queenTries = queenTries;
+    if (queenTries > 8) {
+        bot.fail("mega: quest slot " + QUEEN_SLOT + " will not take " + QUEEN_VALUE);
+        return;
+    }
+    bot.quest.set(QUEEN_SLOT, QUEEN_VALUE);
     return;
 }
 
