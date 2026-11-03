@@ -30,7 +30,6 @@ var SWORD_VALUE = 28;
 var CHAIN_SLOT = 620;
 var QUEEN_SLOT = 426;
 var QUEEN_VALUE = 33;
-
 // Where each quest is accepted: the map Skua stands in for it.
 var ACCEPT_MAP = {
     6539: "noxustower", 6540: "noxustower", 6541: "noxustower", 6542: "noxustower",
@@ -207,6 +206,14 @@ var CLASS_ITEM = 95742;
 var TARA_SPOT = 15048;
 var TARA_ITEM = 96120;
 
+// item -> shop, map, price. The King's Armor wants a hundred 500k vouchers and
+// nothing drops them, so the gold is the ingredient. A price of zero is a map
+// shop that takes nothing.
+var BUY = {};
+BUY[61043] = [2036, "alchemyacademy", 500000];
+BUY[MACE] = [2631, "castle", 0];
+BUY[CLASS_ITEM] = [2630, "terminatemple", 0];
+
 function phase(name) {
     if (bot.memory.phase === name) return;
     bot.memory.phase = name;
@@ -270,6 +277,22 @@ function source(itemId, want) {
         bot.mapItem(spot[1], want.need, itemId);
         return false;
     }
+    if (BUY[itemId] != null) {
+        var shop = BUY[itemId];
+        var missing = want.need - want.have;
+        if (shop[2] > 0) {
+            var gold = bot.gold;
+            if (gold == null) return false;
+            if (gold < missing * shop[2]) {
+                bot.fail("mega: " + (missing * shop[2]) + " gold is needed for " + missing + " of item " + itemId);
+                return false;
+            }
+        }
+        if (!bot.checkpoint(shop[1])) return false;
+        if (!bot.travel(shop[1])) return false;
+        bot.buy(shop[0], itemId, want.need);
+        return false;
+    }
     bot.fail("mega: no source for item " + itemId);
     return false;
 }
@@ -292,7 +315,7 @@ function start(id) {
     }
     bot.memory.tries = bot.memory.tries + 1;
     if (bot.memory.tries > ACCEPT_LIMIT) {
-        bot.fail("mega: quest " + id + " would not start");
+        bot.fail("mega: quest " + id + " would not start; the Echo quests need level 80");
         return false;
     }
     bot.quest.accept(id);
@@ -524,21 +547,14 @@ if (mace < 1) {
     if (!bot.buy(2631, MACE, 1)) return;
 }
 
-// The Queen of Monsters quest was retired, so it cannot be accepted or handed
-// in. Skua writes her slot directly and the client's update request does the
-// same thing, so the slot is set here and the value waited on.
-var qv = bot.quest.value(QUEEN_SLOT);
-if (qv == null) return;
-if (qv < QUEEN_VALUE) {
+// Purify the Crown has no accept requirements of its own, so the retired Queen
+// of Monsters quest is not a gate. Skua still writes her slot first, and some
+// accounts only offer the crown quest after it lands, so the write is sent
+// once and not read back: the client never refreshes that slot on its own.
+if (!bot.memory.queenSet) {
+    bot.memory.queenSet = true;
     phase("the queen of monsters");
-    var queenTries = (bot.memory.queenTries || 0) + 1;
-    bot.memory.queenTries = queenTries;
-    if (queenTries > 8) {
-        bot.fail("mega: quest slot " + QUEEN_SLOT + " will not take " + QUEEN_VALUE);
-        return;
-    }
     bot.quest.set(QUEEN_SLOT, QUEEN_VALUE);
-    return;
 }
 
 var crown = bot.item(95745);
@@ -599,24 +615,9 @@ if (!echo) {
     return;
 }
 
+phase("the class");
 if (!bot.checkpoint("terminatemple")) return;
 if (!bot.travel("terminatemple")) return;
-var gem50 = bot.item(61043);
-if (gem50 == null) return;
-if (gem50 < 100) {
-    phase("the class vouchers");
-    var gold = bot.gold;
-    if (gold == null) return;
-    if (gold < (100 - gem50) * 500000) {
-        bot.fail("mega: " + ((100 - gem50) * 500000) + " gold is needed for the 500k vouchers");
-        return;
-    }
-    if (!bot.checkpoint("alchemyacademy")) return;
-    if (!bot.travel("alchemyacademy")) return;
-    bot.buy(2036, 61043, 100);
-    return;
-}
-phase("the class");
 if (!bot.buy(2630, CLASS_ITEM, 1)) return;
 if (!bot.equip(CLASS_ITEM)) return;
 bot.finish("mega: King's Echo is in the bag");

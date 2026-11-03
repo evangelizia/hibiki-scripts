@@ -190,7 +190,7 @@ function start(id) {
     }
     bot.memory.tries = bot.memory.tries + 1;
     if (bot.memory.tries > ACCEPT_LIMIT) {
-        bot.fail("kings-echo: quest " + id + " would not start");
+        bot.fail("kings-echo: quest " + id + " would not start; the Echo quests need level 80");
         return false;
     }
     bot.quest.accept(id);
@@ -274,24 +274,19 @@ if (mace < 1) {
     return;
 }
 
-var qv = bot.quest.value(QUEEN_SLOT);
-if (qv == null) return;
-if (qv < QUEEN_VALUE) {
+// Purify the Crown carries no accept requirements, so the retired Queen of
+// Monsters quest is not a gate. Skua still writes her slot first, so the write
+// is sent once and not read back: the client never refreshes that slot.
+if (!bot.memory.queenSet) {
+    bot.memory.queenSet = true;
     phase("the queen of monsters");
-    var queenTries = (bot.memory.queenTries || 0) + 1;
-    bot.memory.queenTries = queenTries;
-    if (queenTries > 8) {
-        bot.fail("kings-echo: quest slot " + QUEEN_SLOT + " will not take " + QUEEN_VALUE);
-        return;
-    }
     bot.quest.set(QUEEN_SLOT, QUEEN_VALUE);
-    return;
 }
 
-phase("purify the crown");
 var crown = bot.item(95745);
 if (crown == null) return;
 if (crown < 1) {
+    phase("purify the crown");
     quest(CROWN_Q);
     return;
 }
