@@ -13,7 +13,7 @@ var MAP = "championdrakath";
 var QUEST = 8300;
 
 var FATE = 11683;          // Fate Tonic
-var ELIXIR = 11741;        // Potent Battle Elixir
+var ELIXIR = 11741;        // Potent Battle Elixir; 11770 is Divine for healers
 var HONOR = 11736;         // Potent Honor Potion
 var SCROLL = 12917;        // Scroll of Enrage
 
