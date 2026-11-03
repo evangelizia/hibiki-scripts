@@ -466,33 +466,41 @@ if (li < LYN.length) {
     return;
 }
 
-// The armor pixel. Shards feed the Grove merge first (80), then the Treasury
-// pile (80 more); ornaments feed Valen (60) and the Treasury (60 more); runes
-// go straight to 100. Vouchers cover all three merges at once. Each buy waits
-// for its own ingredients.
-phase("gem shards for lynaria");
-if (!repeatTwin(10240, 93612, 80)) return;
-
-phase("victorious scale");
-if (!farmItem(93645, 1)) return;
-
+// The armor pixel, gated on what is already owned so a buy never refarms
+// its own ingredients: each merge consumes its pile, and the next pass must
+// see the armor, not an empty bag. Shards feed the Grove batch first, then
+// the Treasury pile; ornaments feed Valen first, then the Treasury.
+var lyn = bot.item(LYNARIA_ARMOR);
+if (lyn == null) return;
+var valen = bot.item(VALEN_ARMOR);
+if (valen == null) return;
+if (lyn < 1) {
+    phase("gem shards for lynaria");
+    if (!repeatTwin(10240, 93612, 80)) return;
+    phase("victorious scale");
+    if (!farmItem(93645, 1)) return;
+}
+var vneed = 20 + (lyn < 1 ? 8 : 0) + (valen < 1 ? 8 : 0);
 phase("gold voucher 100k");
-if (!vouchers(36)) return;
-
-phase("champion lynaria armor");
-if (!merge("bocklingrove", 2576, LYNARIA_ARMOR)) return;
+if (!vouchers(vneed)) return;
+if (lyn < 1) {
+    phase("champion lynaria armor");
+    if (!merge("bocklingrove", 2576, LYNARIA_ARMOR)) return;
+}
+if (valen < 1) {
+    phase("bocklin ornaments for valen");
+    if (!repeatTwin(10253, 92886, 60)) return;
+    phase("monster blood");
+    if (!farmItem(44209, 1)) return;
+    phase("valen's knightly armor");
+    if (!merge("bocklincastle", 2577, VALEN_ARMOR)) return;
+}
 
 phase("gem shards for treasury");
 if (!repeatTwin(10240, 93612, 80)) return;
 
-phase("bocklin ornaments");
-if (!repeatTwin(10253, 92886, 120)) return;
-
-phase("monster blood");
-if (!farmItem(44209, 1)) return;
-
-phase("valen's knightly armor");
-if (!merge("bocklincastle", 2577, VALEN_ARMOR)) return;
+phase("bocklin ornaments for treasury");
+if (!repeatTwin(10253, 92886, 60)) return;
 
 phase("thronekeeper runes");
 if (!repeatTwin(10266, 92791, 100)) return;
