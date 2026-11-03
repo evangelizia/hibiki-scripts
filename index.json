@@ -289,6 +289,25 @@
       "timeout": 45
     },
     {
+      "id": "consumable-stock",
+      "name": "Consumable Stock",
+      "desc": "Stocks Fate Tonics, Potent Honor Potions, Potent Battle Elixirs and Scrolls of Enrage for the whole army.",
+      "author": "",
+      "tags": [
+        "consumable",
+        "alchemy",
+        "potion",
+        "scroll",
+        "army"
+      ],
+      "version": "1",
+      "size": 7804,
+      "sha256": "c4d6124c74b744c3fa1e0eeccf4afa355a391e30236892c8b27af6cb52f9d551",
+      "path": "bots/consumable-stock.js",
+      "mode": "loop",
+      "timeout": 25
+    },
+    {
       "id": "dragonslayer",
       "name": "Dragonslayer",
       "desc": "Galanoth's four rank quests in the Lair, from Veteran to Marshal.",
