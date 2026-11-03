@@ -94,6 +94,19 @@
       "timeout": 180
     },
     {
+      "id": "champion-drakath",
+      "name": "Champion Drakath",
+      "desc": "The weekly Champion Drakath kill, with the leader taunting every nuke.",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 3878,
+      "sha256": "ead22cd538dc4c82c16430038704eb8bf6dc86592354d1e5d0806007b1f2b847",
+      "path": "bots/champion-drakath.js",
+      "mode": "once",
+      "timeout": 30
+    },
+    {
       "id": "chaos-1-escherion",
       "name": "13 Lords of Chaos: Escherion",
       "desc": "The first Lord of Chaos, Chiral Valley up to Escherion.",
