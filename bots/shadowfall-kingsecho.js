@@ -473,6 +473,9 @@ if (li < LYN.length) {
 phase("gem shards for lynaria");
 if (!repeatTwin(10240, 93612, 80)) return;
 
+phase("victorious scale");
+if (!farmItem(93645, 1)) return;
+
 phase("gold voucher 100k");
 if (!vouchers(36)) return;
 
@@ -481,9 +484,6 @@ if (!merge("bocklingrove", 2576, LYNARIA_ARMOR)) return;
 
 phase("gem shards for treasury");
 if (!repeatTwin(10240, 93612, 80)) return;
-
-phase("victorious scale");
-if (!farmItem(93645, 1)) return;
 
 phase("bocklin ornaments");
 if (!repeatTwin(10253, 92886, 120)) return;

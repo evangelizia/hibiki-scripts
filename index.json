@@ -400,7 +400,7 @@
       "tags": [],
       "version": "1",
       "size": 21973,
-      "sha256": "d621ef9670018c800ec51ede09b92d5b6699b6e14a4463f64c18f4463433ecdd",
+      "sha256": "cfb5d9d7a2a8dd99952ec70ec4af2791fe0f160f9f6b76bfb33163ac92c371a2",
       "path": "bots/shadowfall-kingsecho.js",
       "mode": "once",
       "timeout": 0
