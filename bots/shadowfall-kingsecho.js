@@ -469,47 +469,52 @@ if (li < LYN.length) {
 // The armor pixel, gated on what is already owned so a buy never refarms
 // its own ingredients: each merge consumes its pile, and the next pass must
 // see the armor, not an empty bag. Shards feed the Grove batch first, then
-// the Treasury pile; ornaments feed Valen first, then the Treasury.
-var lyn = bot.item(LYNARIA_ARMOR);
-if (lyn == null) return;
-var valen = bot.item(VALEN_ARMOR);
-if (valen == null) return;
-if (lyn < 1) {
-    phase("gem shards for lynaria");
+// the Treasury pile; ornaments feed Valen first, then the Treasury. Once
+// Liberation is in the bag the whole block is behind us.
+var liberation = bot.item(LIBERATION);
+if (liberation == null) return;
+if (liberation < 1) {
+    var lyn = bot.item(LYNARIA_ARMOR);
+    if (lyn == null) return;
+    var valen = bot.item(VALEN_ARMOR);
+    if (valen == null) return;
+    if (lyn < 1) {
+        phase("gem shards for lynaria");
+        if (!repeatTwin(10240, 93612, 80)) return;
+        phase("victorious scale");
+        if (!farmItem(93645, 1)) return;
+    }
+    var vneed = 20 + (lyn < 1 ? 8 : 0) + (valen < 1 ? 8 : 0);
+    phase("gold voucher 100k");
+    if (!vouchers(vneed)) return;
+    if (lyn < 1) {
+        phase("champion lynaria armor");
+        if (!merge("bocklingrove", 2576, LYNARIA_ARMOR)) return;
+    }
+    if (valen < 1) {
+        phase("bocklin ornaments for valen");
+        if (!repeatTwin(10253, 92886, 60)) return;
+        phase("monster blood");
+        if (!farmItem(44209, 1)) return;
+        phase("valen's knightly armor");
+        if (!merge("bocklincastle", 2577, VALEN_ARMOR)) return;
+    }
+
+    phase("gem shards for treasury");
     if (!repeatTwin(10240, 93612, 80)) return;
-    phase("victorious scale");
-    if (!farmItem(93645, 1)) return;
-}
-var vneed = 20 + (lyn < 1 ? 8 : 0) + (valen < 1 ? 8 : 0);
-phase("gold voucher 100k");
-if (!vouchers(vneed)) return;
-if (lyn < 1) {
-    phase("champion lynaria armor");
-    if (!merge("bocklingrove", 2576, LYNARIA_ARMOR)) return;
-}
-if (valen < 1) {
-    phase("bocklin ornaments for valen");
+
+    phase("bocklin ornaments for treasury");
     if (!repeatTwin(10253, 92886, 60)) return;
-    phase("monster blood");
-    if (!farmItem(44209, 1)) return;
-    phase("valen's knightly armor");
-    if (!merge("bocklincastle", 2577, VALEN_ARMOR)) return;
+
+    phase("thronekeeper runes");
+    if (!repeatTwin(10266, 92791, 100)) return;
+
+    phase("king alteon fragments");
+    if (!farmItem(93763, 20)) return;
+
+    phase("alden's liberation armor");
+    if (!merge("bocklinsanctum", 2578, LIBERATION)) return;
 }
-
-phase("gem shards for treasury");
-if (!repeatTwin(10240, 93612, 80)) return;
-
-phase("bocklin ornaments for treasury");
-if (!repeatTwin(10253, 92886, 60)) return;
-
-phase("thronekeeper runes");
-if (!repeatTwin(10266, 92791, 100)) return;
-
-phase("king alteon fragments");
-if (!farmItem(93763, 20)) return;
-
-phase("alden's liberation armor");
-if (!merge("bocklinsanctum", 2578, LIBERATION)) return;
 
 // The King's Echo leg. The armor is already in the bag from the merges.
 var mace = bot.item(MACE);
@@ -529,10 +534,10 @@ if (qv < QUEEN_VALUE) {
     return;
 }
 
-phase("purify the crown");
 var crown = bot.item(95745);
 if (crown == null) return;
 if (crown < 1) {
+    phase("purify the crown");
     quest(CROWN_Q);
     return;
 }
@@ -552,24 +557,22 @@ if (blade < 1) {
     return;
 }
 
-phase("the king's armor");
 var plate = bot.item(95744);
 if (plate == null) return;
 if (plate < 1) {
-    var lib = bot.item(LIBERATION);
-    if (lib == null) return;
-    if (lib < 1) {
+    if (!liberation) {
         bot.fail("mega: Alden's Liberation Armor is missing; the merge leg did not finish it");
         return;
     }
+    phase("the king's armor");
     quest(ARMOR_Q);
     return;
 }
 
-phase("familial blessing");
 var blessed = bot.quest.done(BLESS_Q);
 if (blessed == null) return;
 if (!blessed) {
+    phase("familial blessing");
     if (!start(BLESS_Q)) return;
     if (bot.quest.ready(BLESS_Q)) {
         bot.quest.turnIn(BLESS_Q);
@@ -581,20 +584,20 @@ if (!blessed) {
     return;
 }
 
-phase("echo of the king");
 var echo = bot.quest.done(KING_Q);
 if (echo == null) return;
 if (!echo) {
+    phase("echo of the king");
     quest(KING_Q);
     return;
 }
 
-phase("the class");
 if (!bot.checkpoint("terminatemple")) return;
 if (!bot.travel("terminatemple")) return;
 var gem50 = bot.item(61043);
 if (gem50 == null) return;
 if (gem50 < 100) {
+    phase("the class vouchers");
     var gold = bot.gold;
     if (gold == null) return;
     if (gold < (100 - gem50) * 500000) {
@@ -606,6 +609,7 @@ if (gem50 < 100) {
     bot.buy(2036, 61043, 100);
     return;
 }
+phase("the class");
 if (!bot.buy(2630, CLASS_ITEM, 1)) return;
 if (!bot.equip(CLASS_ITEM)) return;
 bot.finish("mega: King's Echo is in the bag");
