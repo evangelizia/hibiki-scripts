@@ -32,7 +32,6 @@ var STORY = [
 ];
 
 var BINKY = ["r5", "Left"];
-var OPEN = 3;
 
 function mergeRelic() {
     if (!bot.travel("museum")) return;
@@ -102,7 +101,9 @@ if (chain == null) return;
 
 for (var i = 0; i < STORY.length; i++) {
     if (chain >= i + 1) continue;
-    if (!bot.quest.farm(STORY[i].id, STORY[i].monster, "doomvault", STORY[i].cell, "Left")) return;
+    // One leg per pass: the chain only moves on the turn-in answer, so the
+    // next leg is chosen from the new value, not this one.
+    bot.quest.farm(STORY[i].id, STORY[i].monster, "doomvault", STORY[i].cell, "Left");
     return;
 }
 
