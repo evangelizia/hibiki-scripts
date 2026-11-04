@@ -68,14 +68,29 @@ if (fragment > 0) {
     return;
 }
 
-// The game picks the leg from the account, so the script does the same.
-if (bot.guardian == null || bot.member == null || bot.level == null) return;
+// The game picks the leg from the account, so the script does the same. The
+// member leg covers Guardians too - a Guardian account is upgraded, and the
+// Legendary pass wants level 1 with no reputation - so the Guardian leg is only
+// a fallback for a build that reports the flag and not the membership.
+//
+// Unknown facts fall to the free leg rather than stalling: it is the one that
+// works for every account at level 55 and rank 10, and anything that refuses
+// it says so.
+var who = "free";
+if (bot.member === true) who = "member";
+else if (bot.guardian === true) who = "guardian";
 
-var leg = bot.guardian ? LEG.guardian : (bot.member ? LEG.member : LEG.free);
+var leg = LEG[who];
 
-if (bot.level < leg.level) {
-    bot.fail("cape-of-awe: the " + (bot.guardian ? "Guardian" : (bot.member ? "member" : "free"))
-        + " leg wants level " + leg.level + "; this hero is " + bot.level);
+if (bot.memory.leg !== who) {
+    bot.memory.leg = who;
+    bot.log("cape-of-awe: " + who + " leg, level " + bot.level
+        + " member " + bot.member + " guardian " + bot.guardian);
+}
+
+if (bot.level != null && bot.level < leg.level) {
+    bot.fail("cape-of-awe: the " + who + " leg wants level " + leg.level
+        + "; this hero is " + bot.level);
     return;
 }
 

@@ -126,8 +126,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 3484,
-      "sha256": "6b559945c038aab9d962c6f7437cde546769885662419e96a501419a7a1000cb",
+      "size": 4017,
+      "sha256": "d6c26447986b82a065a1ec7e3a6b07d0fc02d6ca007aec56e46cfa1b1d871576",
       "path": "bots/cape-of-awe.js",
       "mode": "once",
       "timeout": 30
