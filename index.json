@@ -68,6 +68,19 @@
       "timeout": 0
     },
     {
+      "id": "blade-of-awe-rep",
+      "name": "Blade of Awe REP",
+      "desc": "Rank 10 Blade of Awe, off Find the Hilt!",
+      "author": "",
+      "tags": [],
+      "version": "1",
+      "size": 1562,
+      "sha256": "5c53b6f98f78b1465d1478c3e943bfca9f7f999af7932beaed974d717fb85d8b",
+      "path": "bots/blade-of-awe-rep.js",
+      "mode": "loop",
+      "timeout": 20
+    },
+    {
       "id": "blade-of-awe",
       "name": "Blade of Awe",
       "desc": "Valencia's Awe quests, rank 6, and the Blade of Awe.",

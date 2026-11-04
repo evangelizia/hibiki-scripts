@@ -102,6 +102,19 @@ export interface Bot {
    */
   readonly memory: Record<string, unknown>;
 
+  /**
+   * The character's level, or `null` until the client reports it. A quest the
+   * game gates on level is refused with no line in LOG, so a step names the
+   * gate itself instead of waiting on an accept that never arrives.
+   */
+  readonly level: number | null;
+
+  /** True for an upgraded account, false for a free one, `null` while unknown. */
+  readonly member: boolean | null;
+
+  /** True for a Guardian account, false for one that is not, `null` while unknown. */
+  readonly guardian: boolean | null;
+
   readonly quest: {
     /** In progress or ready to hand in. */
     active(id: number): boolean;
