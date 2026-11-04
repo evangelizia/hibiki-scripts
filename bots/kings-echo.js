@@ -86,14 +86,12 @@ var HUNT = {
     19072: ["castle", "r7", "", "Castle Wraith"]
 };
 
-// The Defiler pays Graveclaw for members and the Destructive Defiler for
-// everyone else, and the engine cannot ask which the character is. Camp one
-// and only move after six full passes pay nothing; progress resets it.
+// The Defiler pays ten per kill to members at Graveclaw, and one per kill to
+// everyone at the Destructive Defiler. The member route sits behind a member
+// only map, and a join the server refuses ends the whole run, so with no way
+// to read membership the free route is the only safe one.
 var DEFILE_ITEM = 96126;
-var DEFILE = [
-    ["shattersword", "r11", "Left", "Graveclaw the Defiler"],
-    ["infernalarena", "r16", "", "Destructive Defiler"]
-];
+var DEFILER = ["infernalarena", "r16", "", "Destructive Defiler"];
 
 // item -> shop, the map it loads in, and the gold one copy costs. A zero
 // price skips the gold check; the voucher is 500k a copy, a hundred copies.
@@ -144,28 +142,8 @@ function buy(leg, itemId, count) {
     return bot.buy(leg[0], itemId, want);
 }
 
-function defiler(want) {
-    var idx = bot.memory.defile || 0;
-    var leg = DEFILE[idx % DEFILE.length];
-    if (!hunt(leg)) return false;
-    if (bot.memory.defhave == null) { bot.memory.defhave = want.have; return false; }
-    if (want.have !== bot.memory.defhave) {
-        bot.memory.defhave = want.have;
-        bot.memory.defdry = 0;
-        return false;
-    }
-    var dry = (bot.memory.defdry || 0) + 1;
-    bot.memory.defdry = dry;
-    if (dry >= 6) {
-        bot.memory.defdry = 0;
-        bot.memory.defile = idx + 1;
-        bot.log("kings-echo: defiler dry, trying " + DEFILE[(idx + 1) % DEFILE.length][0]);
-    }
-    return false;
-}
-
 function source(itemId, want) {
-    if (itemId === DEFILE_ITEM) return defiler(want);
+    if (itemId === DEFILE_ITEM) { hunt(DEFILER); return false; }
     if (HUNT[itemId] != null) { hunt(HUNT[itemId]); return false; }
     if (BUY[itemId] != null) { buy(BUY[itemId], itemId, want.need); return false; }
     bot.fail("kings-echo: no source for item " + itemId);

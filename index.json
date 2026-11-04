@@ -353,8 +353,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 11548,
-      "sha256": "ef13b51f5e1aee32387348da93bf5c6bc37b568adfbb6f1d437be2d9e4e33b9f",
+      "size": 10911,
+      "sha256": "0479d90ce96eda361c92432914aa0d082eec69e6add319a2654a5b8d25109218",
       "path": "bots/kings-echo.js",
       "mode": "once",
       "timeout": 0
@@ -431,8 +431,8 @@
       "author": "",
       "tags": [],
       "version": "1",
-      "size": 23396,
-      "sha256": "9752ab488816fe5a5e8fecba01e4a78d98e389324cc189a70597ae97655f415c",
+      "size": 22765,
+      "sha256": "332732acf6d9db24fdc1bcca9129f8b897ad5c004da3a116d1f2c3ca473c0778",
       "path": "bots/shadowfall-kingsecho.js",
       "mode": "once",
       "timeout": 0
